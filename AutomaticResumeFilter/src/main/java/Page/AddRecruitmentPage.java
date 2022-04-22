@@ -4,7 +4,7 @@ import org.openqa.selenium.WebDriver;
 public class AddRecruitmentPage
 {
     static WebDriver driver;
-
+    System.out.println("hlo");
     public static By username_box=By.id("emailAddress");
     public static By password_box=By.id("password");
     public static By loginBtn=By.xpath("//*[contains(text(),' Login ')]");
