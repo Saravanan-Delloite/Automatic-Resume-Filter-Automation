@@ -23,36 +23,44 @@ public class AddQuizPage {
     By reset = By.xpath("//button[@type='reset']");
     By submit = By.xpath("//button[text()=' Submit Quiz ']");
 
+    By linkErrorMsg = By.xpath("//div[text()=' Quiz link is required. ']");
+    By dateErrorMsg =By.xpath("//div[text()=' End Date is required. ']");
+    By timeErrorMsg = By.xpath("//div[text()=' Time Limit is required. ']");
+
     public void clickHomeBtn(){
         driver.findElement(homeBtn).click();
+    }
+
+    public void clickResetBtn(){
+        driver.findElement(reset).click();
     }
 
     public void login(String username, String password) throws InterruptedException {
         driver.findElement(username_box).sendKeys(username);
         driver.findElement(password_box).sendKeys(password);
         driver.findElement(loginBtn).click();
-        Thread.sleep(5000);
-      //  driver.get("https://resume-filter-frontend-urtjok3rza-wl.a.run.app/expert/add-quiz/183");
-//        WebDriverWait wait = new WebDriverWait(driver, 10);
-//        wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//button[text()=' Add Quiz']"))).click();
-//        driver.findElement(By.xpath("//button[text()=' Add Quiz']")).click();
-//        List<WebElement> buttons = driver.findElements(By.xpath("//button[text()=' Add Quiz']"));
-//        for (int i=0; i<buttons.size();i++){
-//            WebElement button = buttons.get(i);
-//            if (button.isEnabled()){
-//                System.out.println(button);
-//                button.click();
-//                break;
-//            }
-//        }
-//
     }
+
+
 
     public void addQuizDetails (String link, String dueDate, String time, String questions){
         driver.findElement(quizLink).sendKeys(link);
         driver.findElement(date).sendKeys(dueDate);
         driver.findElement(timeLimit).sendKeys(time);
         driver.findElement(numberOfQue).sendKeys(questions);
-        driver.findElement(submit).click();
+        if(driver.findElement(submit).isEnabled()){
+            driver.findElement(submit).click();
+        }
+    }
+
+    public void addQuizEmptyDetails(){
+        driver.findElement(quizLink).click();
+        driver.findElement(date).click();
+        driver.findElement(timeLimit).click();
+        driver.findElement(numberOfQue).click();
+        if(driver.findElement(submit).isEnabled()){
+            driver.findElement(submit).click();
+        }
+
     }
 }
