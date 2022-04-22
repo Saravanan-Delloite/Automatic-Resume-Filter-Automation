@@ -40,5 +40,22 @@ public class LoginPage {
     {
         username.sendKeys(userid);
     }
+    public void EnterPassword(String pswrd)
+    {
+        password.sendKeys(pswrd);
+    }
+    public void ClickLogin()
+    {
+        loginButton.click();
+    }
+    public ForgotPasswordPage ClickForgotPassword()
+    {
+        forgotPassword.click();
+        return new ForgotPasswordPage(driver);
+    }
+    public void ClickRememberMe()
+    {
+        rememberPassword.click();
+    }
 }
 

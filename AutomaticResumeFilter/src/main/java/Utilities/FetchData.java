@@ -13,12 +13,12 @@ public class FetchData {
 
         try {
             XSSFWorkbook xsf = new XSSFWorkbook("src/main/LoginDetails.xlsx");
-            XSSFSheet sheet = xsf.getSheetAt(0);
+            XSSFSheet sheet = xsf.getSheet("Sheet1");
             for(int i=2; i<=2; i++) {
                 List<String> line = new ArrayList<>();
+                line.add(sheet.getRow(i).getCell(0).getStringCellValue());
                 line.add(sheet.getRow(i).getCell(1).getStringCellValue());
                 line.add(sheet.getRow(i).getCell(2).getStringCellValue());
-                line.add(sheet.getRow(i).getCell(3).getStringCellValue());
 //                line.add(Integer.toString((int)sheet.getRow(i).getCell(3).getNumericCellValue()));
 //                line.add(Integer.toString((int)sheet.getRow(i).getCell(4).getNumericCellValue()));
 //                line.add(Integer.toString((int)sheet.getRow(i).getCell(5).getNumericCellValue()));
