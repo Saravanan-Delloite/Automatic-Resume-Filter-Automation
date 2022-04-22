@@ -3,20 +3,20 @@ package PageLibrary;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 
-public class SignupPage extends DriverPage {
+public class SignupPageDisplayAndEnable extends DriverPage {
     boolean name,email,userName,password,confirmPassword,role;
-    public SignupPage(WebDriver driver)
+    public SignupPageDisplayAndEnable(WebDriver driver)
     {
         this.driver = driver;
     }
 
     By signup_Title = By.xpath("//div[@class='signup']");
-    By nameTextField = By.xpath("/html/body/app-root/app-sign-up/div/div[3]/form/div[1]/input");
-    By emailTextField = By.xpath("/html/body/app-root/app-sign-up/div/div[3]/form/div[2]/input");
-    By userNameTextField = By.xpath("/html/body/app-root/app-sign-up/div/div[3]/form/div[3]/input");
-    By passwordTextField = By.xpath("/html/body/app-root/app-sign-up/div/div[3]/form/div[4]/input");
-    By confirmPasswordTextField = By.xpath("/html/body/app-root/app-sign-up/div/div[3]/form/div[5]/input");
-    By roleTextField = By.xpath("/html/body/app-root/app-sign-up/div/div[3]/form/div[6]/select");
+    By nameTextField = By.xpath("//*[text()='Name']/following-sibling::input");
+    By emailTextField = By.xpath("//*[text()='Email']/following-sibling::input");
+    By userNameTextField = By.xpath("//*[text()='User Name']/following-sibling::input");
+    By passwordTextField = By.xpath("//*[text()='Password']/following-sibling::input");
+    By confirmPasswordTextField = By.xpath("//*[text()='Confirm Password']/following-sibling::input");
+    By roleTextField = By.xpath("//select[@formcontrolname='role']");
 
     public String gettext()
     {
@@ -90,4 +90,5 @@ public class SignupPage extends DriverPage {
         role = driver.findElement(nameTextField).isEnabled();
         return role;
     }
+
 }
