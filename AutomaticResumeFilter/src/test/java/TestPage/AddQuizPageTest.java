@@ -10,7 +10,7 @@ import java.io.IOException;
 import java.util.concurrent.TimeUnit;
 
 public class AddQuizPageTest {
-    ReadDataFromExcel readDataFromExcel=new ReadDataFromExcel();
+   // ReadDataFromExcel readDataFromExcel=new ReadDataFromExcel();
     AddQuizPage addQuizPage;
     WebDriver driver;
 

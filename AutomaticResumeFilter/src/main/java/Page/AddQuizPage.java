@@ -32,7 +32,7 @@ public class AddQuizPage {
         driver.findElement(password_box).sendKeys(password);
         driver.findElement(loginBtn).click();
         Thread.sleep(5000);
-        driver.get("https://resume-filter-frontend-urtjok3rza-wl.a.run.app/expert/add-quiz/183");
+      //  driver.get("https://resume-filter-frontend-urtjok3rza-wl.a.run.app/expert/add-quiz/183");
 //        WebDriverWait wait = new WebDriverWait(driver, 10);
 //        wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//button[text()=' Add Quiz']"))).click();
 //        driver.findElement(By.xpath("//button[text()=' Add Quiz']")).click();
