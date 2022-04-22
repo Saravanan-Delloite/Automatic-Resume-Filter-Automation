@@ -36,9 +36,9 @@ public class LoginPage {
         PageFactory.initElements(driver,this);
     }
 
-    public void EnterUsername()
+    public void EnterUsername(String userid)
     {
-        username.sendKeys("ahss");
+        username.sendKeys(userid);
     }
 }
 
