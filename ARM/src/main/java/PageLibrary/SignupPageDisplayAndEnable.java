@@ -10,21 +10,20 @@ public class SignupPageDisplayAndEnable extends DriverPage {
         this.driver = driver;
     }
 
-    By signup_Title = By.xpath("//div[@class='signup']");
-    By nameTextField = By.xpath("//*[text()='Name']/following-sibling::input");
-    By emailTextField = By.xpath("//*[text()='Email']/following-sibling::input");
-    By userNameTextField = By.xpath("//*[text()='User Name']/following-sibling::input");
-    By passwordTextField = By.xpath("//*[text()='Password']/following-sibling::input");
-    By confirmPasswordTextField = By.xpath("//*[text()='Confirm Password']/following-sibling::input");
-    By roleTextField = By.xpath("//select[@formcontrolname='role']");
+    static By signupTitle = By.xpath("//div[@class='signup']");
+    static By nameTextField = By.xpath("//*[text()='Name']/following-sibling::input");
+    static By emailTextField = By.xpath("//*[text()='Email']/following-sibling::input");
+    static By userNameTextField = By.xpath("//*[text()='User Name']/following-sibling::input");
+    static By passwordTextField = By.xpath("//*[text()='Password']/following-sibling::input");
+    static By confirmPasswordTextField = By.xpath("//*[text()='Confirm Password']/following-sibling::input");
+    static By roleTextField = By.xpath("//select[@formcontrolname='role']");
 
     public String gettext()
     {
-        String text = driver.findElement(signup_Title).getText();
+        String text = driver.findElement(signupTitle).getText();
         System.out.println(text);
         return text;
     }
-
     public boolean nameTextFieldDisplay()
     {
         name = driver.findElement(nameTextField).isDisplayed();
@@ -67,27 +66,27 @@ public class SignupPageDisplayAndEnable extends DriverPage {
     }
     public boolean emailTextFieldEnable()
     {
-        email = driver.findElement(nameTextField).isEnabled();
+        email = driver.findElement(emailTextField).isEnabled();
         return email;
     }
     public boolean userNameTextFieldEnable()
     {
-        userName = driver.findElement(nameTextField).isEnabled();
+        userName = driver.findElement(userNameTextField).isEnabled();
         return userName;
     }
     public boolean passwordTextFieldEnable()
     {
-        password = driver.findElement(nameTextField).isEnabled();
+        password = driver.findElement(passwordTextField).isEnabled();
         return password;
     }
     public boolean confirmPasswordTextFieldEnable()
     {
-        confirmPassword = driver.findElement(nameTextField).isEnabled();
+        confirmPassword = driver.findElement(confirmPasswordTextField).isEnabled();
         return confirmPassword;
     }
     public boolean roleTextFieldEnable()
     {
-        role = driver.findElement(nameTextField).isEnabled();
+        role = driver.findElement(roleTextField).isEnabled();
         return role;
     }
 
