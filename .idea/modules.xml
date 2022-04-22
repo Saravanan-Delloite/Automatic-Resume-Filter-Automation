@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ProjectModuleManager">
+    <modules>
+      <module fileurl="file://$PROJECT_DIR$/.idea/Automatic-Resume-Filter-Automation.iml" filepath="$PROJECT_DIR$/.idea/Automatic-Resume-Filter-Automation.iml" />
+      <module fileurl="file://$PROJECT_DIR$/AutomaticResumeFilter/AutomaticResumeFilter.iml" filepath="$PROJECT_DIR$/AutomaticResumeFilter/AutomaticResumeFilter.iml" />
+    </modules>
+  </component>
+</project>
