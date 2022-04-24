@@ -4,7 +4,7 @@ import org.openqa.selenium.WebDriver;
 public class AddRecruitmentPage
 {
     static WebDriver driver;
-    System.out.println("hlo");
+    //System.out.println("hlo");
     public static By username_box=By.id("emailAddress");
     public static By password_box=By.id("password");
     public static By loginBtn=By.xpath("//*[contains(text(),' Login ')]");
@@ -15,9 +15,10 @@ public class AddRecruitmentPage
     public static By Expert=By.id("expert");
     public static By Start_Date=By.id("inputStartDate");
     public static By End_Date=By.id("inputEndDate");
-    /*public static By Upload_Resume=By.id("resumes");
     public static By Reset_Button=By.xpath("//*[contains(text(),'Reset')]");
-    public static By Add_Recruitment_Btn=By.className("btn btn-warning");
+    public static By Upload_Resume=By.id("resumes");
+
+    /*public static By Add_Recruitment_Btn=By.className("btn btn-warning");
     public By Recruitment_Name_Warning=By.xpath("//*[contains(text(),'Reset')]");
     public By Category_Warning=By.xpath("//*[contains(text(),'Reset')]");
     public By Skill_Warning=By.xpath("//*[contains(text(),'Reset')]");
