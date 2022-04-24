@@ -2,6 +2,8 @@ package TestPage;
 
 import Page.ForgotPasswordPage;
 import Page.LoginPage;
+import Utilities.Environment;
+import Utilities.ExcelDataConfig;
 import org.testng.Assert;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
@@ -12,11 +14,12 @@ public class LoginPageTest {
 
     LoginPage login;
     ForgotPasswordPage forgotPassword;
+    ExcelDataConfig excel = new ExcelDataConfig(Environment.path);
 
     @BeforeClass
     public void setup() {
         setDriver();
-        getDriver().get("https://resume-filter-frontend-urtjok3rza-wl.a.run.app/login");
+        getDriver().get(Environment.URL);
         getDriver().manage().window().maximize();
 
         login = new LoginPage(getDriver());
@@ -32,7 +35,7 @@ public class LoginPageTest {
     @Test(priority = 2)
     public void EnterEmailId()
     {
-        forgotPassword.EnterEmailId("yyashmittal@gmail.com");
+        forgotPassword.EnterEmailId(excel.getData(0,1,2));
     }
 
     @Test(priority = 3)
@@ -50,13 +53,13 @@ public class LoginPageTest {
     @Test(priority = 5)
     public void AssertTitle()
     {
-        Assert.assertEquals(login.AssertTitle(),"ResumeFrontEnd");
+        Assert.assertEquals(login.AssertTitle(),Environment.title);
     }
 
     @Test(priority = 6)
     public void EnterUsername()
     {
-        login.EnterUsername("admin123");
+        login.EnterUsername(excel.getData(0,1,0));
     }
 
     @Test(priority = 7)
@@ -68,19 +71,19 @@ public class LoginPageTest {
     @Test(priority = 8)
     public void AssertUsername()
     {
-        Assert.assertEquals(login.AssertUsername(),"admin123");
+        Assert.assertEquals(login.AssertUsername(),excel.getData(0,1,0));
     }
 
     @Test(priority = 9)
     public void EnterPassword()
     {
-        login.EnterPassword("admin123");
+        login.EnterPassword(excel.getData(0,1,1));
     }
 
     @Test(priority = 10)
     public void AssertPassword()
     {
-        Assert.assertEquals(login.AssertPassword(),"admin123");
+        Assert.assertEquals(login.AssertPassword(),excel.getData(0,1,1));
     }
 
     @Test(priority = 11)
