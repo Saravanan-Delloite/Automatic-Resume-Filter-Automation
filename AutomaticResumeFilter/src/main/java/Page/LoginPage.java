@@ -11,7 +11,6 @@ import java.time.Duration;
 public class LoginPage {
     WebDriver driver;
 
-
     @FindBy(id = "emailAddress")
     WebElement username;
 
@@ -36,68 +35,67 @@ public class LoginPage {
     @FindBy(xpath = "//a[@class='dropdown-item']")
     WebElement signout;
 
-    public LoginPage(WebDriver driver)
-    {
+    public LoginPage(WebDriver driver) {
         this.driver = driver;
         PageFactory.initElements(driver,this);
     }
 
-    public void EnterUsername(String userid)
-    {
+    public void EnterUsername(String userid) {
         username.sendKeys(userid);
     }
-    public void EnterPassword(String pswrd)
-    {
+
+    public void EnterPassword(String pswrd) {
         password.sendKeys(pswrd);
     }
+
     public void ClickLogin()
     {
         loginButton.click();
     }
-    public ForgotPasswordPage ClickForgotPassword()
-    {
+
+    public ForgotPasswordPage ClickForgotPassword() {
         forgotPassword.click();
         return new ForgotPasswordPage(driver);
     }
-    public void ClickRememberMe()
-    {
+
+    public void ClickRememberMe() {
         rememberPassword.click();
     }
-    public String AssertTitle()
-    {
+
+    public String AssertTitle() {
         return driver.getTitle();
     }
-    public String AssertUsername()
-    {
+
+    public String AssertUsername() {
         return username.getAttribute("value");
     }
-    public String AssertPassword()
-    {
+
+    public String AssertPassword() {
         return password.getAttribute("value");
     }
-    public boolean AssertLoginButton()
-    {
+
+    public boolean AssertLoginButton() {
         return loginButton.isEnabled();
     }
-    public boolean AssertRememberMe()
-    {
+
+    public boolean AssertRememberMe() {
         return rememberPassword.isDisplayed();
     }
-    public boolean AssertForgotPassword()
-    {
+
+    public boolean AssertForgotPassword() {
         return forgotPassword.isDisplayed();
     }
-    public boolean AssertRegister()
-    {
+
+    public boolean AssertRegister() {
         return signUpButton.isDisplayed();
     }
-    public void clickProfile()
-    {
+
+    public void clickProfile() {
         driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(5));
         profile.click();
     }
-    public void ClickSignOut()
-    {
+
+    public void ClickSignOut() {
         signout.click();
     }
 

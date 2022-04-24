@@ -18,8 +18,7 @@ public class SetupDriver {
         return driver.get();
     }
 
-    public static void closeBrowser()
-    {
+    public static void closeBrowser() {
         driver.get().close();
         driver.remove();
     }

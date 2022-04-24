@@ -10,11 +10,8 @@ public class LoginExpertTestPage {
     LoginPage login;
 
     @BeforeClass
-    public void setup()
-    {
-
+    public void setup() {
         login = new LoginPage(getDriver());
-
     }
 
     @Test(priority = 1)
