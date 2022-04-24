@@ -19,7 +19,7 @@ public class ForgotPasswordPage {
     WebElement otp;
 
     @FindBy(xpath = "//a[@href='/login']")
-    WebElement backtoLogin;
+    WebElement backToLogin;
 
     public ForgotPasswordPage(WebDriver driver)
     {
@@ -28,7 +28,7 @@ public class ForgotPasswordPage {
     }
     public void clickBackToLogin()
     {
-        backtoLogin.click();
+        backToLogin.click();
     }
     public void EnterEmailId(String mailId)
     {

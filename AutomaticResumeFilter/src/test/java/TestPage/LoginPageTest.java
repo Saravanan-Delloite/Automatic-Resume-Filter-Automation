@@ -2,30 +2,16 @@ package TestPage;
 
 import Page.ForgotPasswordPage;
 import Page.LoginPage;
-import Utilities.FetchData;
+import org.testng.Assert;
 import org.testng.annotations.BeforeClass;
-import org.testng.annotations.BeforeMethod;
-import org.testng.annotations.BeforeTest;
 import org.testng.annotations.Test;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
 import static Utilities.SetupDriver.*;
 
 public class LoginPageTest {
-//    public List<List<String>> testData = new ArrayList<>();
-//    String userid="";
-//    String password="";
+
 
     LoginPage login;
     ForgotPasswordPage forgotPassword;
-//    @BeforeClass
-//    public void ReadData()
-//    {
-//        testData = FetchData.getTestData();
-//        userid = testData.get(0).get(0);
-//        password = testData.get(0).get(1);
-//    }
 
     @BeforeClass
     public void setup()
@@ -39,11 +25,13 @@ public class LoginPageTest {
 
     }
 
+
     @Test(priority = 1)
     public void ClickForgotPassword()
     {
         login.ClickForgotPassword();
     }
+
 
     @Test(priority = 2)
     public void EnterEmailId()
@@ -51,37 +39,93 @@ public class LoginPageTest {
         forgotPassword.EnterEmailId("yyashmittal@gmail.com");
     }
 
+
     @Test(priority = 3)
     public void ClickSendOtp()
     {
         forgotPassword.ClickSendOtp();
     }
+
+
     @Test(priority = 4)
     public void ClickBackToLogin()
     {
         forgotPassword.clickBackToLogin();
     }
 
+
     @Test(priority = 5)
+    public void AssertTitle()
+    {
+        Assert.assertEquals(login.AssertTitle(),"ResumeFrontEnd");
+    }
+
+
+    @Test(priority = 6)
     public void EnterUsername()
     {
         login.EnterUsername("admin123");
     }
 
-    @Test(priority = 6)
+
+    @Test(priority = 7)
+    public void AssertLoginButton()
+    {
+        Assert.assertFalse(login.AssertLoginButton());
+    }
+
+
+    @Test(priority = 8)
+    public void AssertUsername()
+    {
+        Assert.assertEquals(login.AssertUsername(),"admin123");
+    }
+
+
+    @Test(priority = 9)
     public void EnterPassword()
     {
         login.EnterPassword("admin123");
     }
 
-    @Test(priority = 7)
+
+    @Test(priority = 10)
+    public void AssertPassword()
+    {
+        Assert.assertEquals(login.AssertPassword(),"admin123");
+    }
+
+    @Test(priority = 11)
+    public void Assertions()
+    {
+        Assert.assertTrue(login.AssertRememberMe());
+        Assert.assertTrue(login.AssertRegister());
+        Assert.assertTrue(login.AssertForgotPassword());
+    }
+
+    @Test(priority = 12)
     public void ClickRememberMe()
     {
         login.ClickRememberMe();
     }
-    @Test(priority = 8)
+
+
+    @Test(priority = 13)
     public void ClickLogin()
     {
         login.ClickLogin();
+    }
+
+
+    @Test(priority = 14)
+    public void ClickProfile()
+    {
+        login.clickProfile();
+    }
+
+    @Test(priority = 15)
+    public void ClickSignOut()
+    {
+        login.ClickSignOut();
     }
 }

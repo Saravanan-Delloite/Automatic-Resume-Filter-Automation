@@ -6,11 +6,11 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 
+import java.time.Duration;
+
 public class LoginPage {
     WebDriver driver;
 
-    @FindBy(xpath = "//title[text()='ResumeFrontEnd']")
-    WebElement title;
 
     @FindBy(id = "emailAddress")
     WebElement username;
@@ -29,6 +29,12 @@ public class LoginPage {
 
     @FindBy(id = "rememberPasswordCheck")
     WebElement rememberPassword;
+
+    @FindBy(xpath = "//div[@id='dropdownMenuButton']")
+    WebElement profile;
+
+    @FindBy(xpath = "//a[@class='dropdown-item']")
+    WebElement signout;
 
     public LoginPage(WebDriver driver)
     {
@@ -57,5 +63,43 @@ public class LoginPage {
     {
         rememberPassword.click();
     }
+    public String AssertTitle()
+    {
+        return driver.getTitle();
+    }
+    public String AssertUsername()
+    {
+        return username.getAttribute("value");
+    }
+    public String AssertPassword()
+    {
+        return password.getAttribute("value");
+    }
+    public boolean AssertLoginButton()
+    {
+        return loginButton.isEnabled();
+    }
+    public boolean AssertRememberMe()
+    {
+        return rememberPassword.isDisplayed();
+    }
+    public boolean AssertForgotPassword()
+    {
+        return forgotPassword.isDisplayed();
+    }
+    public boolean AssertRegister()
+    {
+        return signUpButton.isDisplayed();
+    }
+    public void clickProfile()
+    {
+        driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(5));
+        profile.click();
+    }
+    public void ClickSignOut()
+    {
+        signout.click();
+    }
+
 }
 
