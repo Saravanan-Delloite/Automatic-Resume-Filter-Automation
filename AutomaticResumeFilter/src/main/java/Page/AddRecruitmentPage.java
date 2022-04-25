@@ -28,7 +28,7 @@ public class AddRecruitmentPage
     public static By Zip_File_Warning=By.xpath("//*[contains(text(),'Reset')]");
 
     /*public void clickHomeBtn()
-    {
+
         driver.findElement(homeBtn).click();
     }*/
 
