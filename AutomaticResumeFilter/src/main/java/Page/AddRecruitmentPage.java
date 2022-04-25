@@ -17,7 +17,7 @@ public class AddRecruitmentPage
     public static By End_Date=By.id("inputEndDate");
     public static By Reset_Button=By.xpath("//*[contains(text(),'Reset')]");
     public static By Upload_Resume=By.id("resumes");
-
+    //
     public static By Add_Recruitment_Btn=By.xpath("//button[@class='btn btn-warning']");
     public static By Recruitment_Name_Warning=By.xpath("//*[contains(text(),' Recruitment name is required')]");
     public static By Category_Warning=By.xpath("//*[contains(text(),' Category is required. ')]");

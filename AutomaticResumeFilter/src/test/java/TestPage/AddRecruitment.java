@@ -53,6 +53,7 @@ public class AddRecruitment
         sendValues(recruit_Category,"");
         driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(5));
     }
+    //
     @Test(priority = 3)
     public void SelectSkills()
     {
@@ -78,6 +79,7 @@ public class AddRecruitment
         Assert.assertTrue(driver.findElement(Skill_Warning).isDisplayed());
         driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(5));
     }
+    //
     @Test(priority = 7)
     public void selectStartDate()
     {
