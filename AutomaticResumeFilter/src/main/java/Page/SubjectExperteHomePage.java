@@ -236,6 +236,7 @@ public class SubjectExperteHomePage {
 
     }
     public void close(){
+        //quit browser
         driver.quit();
     }
 
