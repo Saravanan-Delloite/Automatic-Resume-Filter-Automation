@@ -91,7 +91,6 @@ public class SubjectExperteHomePageTest {
         catch (AssertionError e){
             System.out.println("assertion error3");
         }
-        Thread.sleep(5000);
 
 
     }
