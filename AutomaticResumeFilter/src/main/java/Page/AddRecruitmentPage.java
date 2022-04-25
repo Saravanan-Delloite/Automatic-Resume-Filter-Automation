@@ -18,14 +18,14 @@ public class AddRecruitmentPage
     public static By Reset_Button=By.xpath("//*[contains(text(),'Reset')]");
     public static By Upload_Resume=By.id("resumes");
 
-    /*public static By Add_Recruitment_Btn=By.className("btn btn-warning");
-    public By Recruitment_Name_Warning=By.xpath("//*[contains(text(),'Reset')]");
-    public By Category_Warning=By.xpath("//*[contains(text(),'Reset')]");
-    public By Skill_Warning=By.xpath("//*[contains(text(),'Reset')]");
-    public By Expertee_Warning=By.xpath("//*[contains(text(),'Reset')]");
-    public By Start_DateWarning=By.xpath("//*[contains(text(),'Reset')]");
-    public By End_Date_Warning=By.xpath("//*[contains(text(),'Reset')]");
-    public By Zip_File_Warning=By.xpath("//*[contains(text(),'Reset')]");*/
+    public static By Add_Recruitment_Btn=By.xpath("//button[@class='btn btn-warning']");
+    public static By Recruitment_Name_Warning=By.xpath("//*[contains(text(),' Recruitment name is required')]");
+    public static By Category_Warning=By.xpath("//*[contains(text(),' Category is required. ')]");
+    public static By Skill_Warning=By.xpath("//*[contains(text(),' Skills are required to compare with Resume skills. ')]");
+    public static By Expertee_Warning=By.xpath("//*[contains(text(),' Assigning an Expert is required ')]");
+    public static By Start_DateWarning=By.xpath("//*[contains(text(),' Start Date is required. ')]");
+    public static By End_Date_Warning=By.xpath("//*[contains(text(),' End Date is required. ')]");
+    public static By Zip_File_Warning=By.xpath("//*[contains(text(),'Reset')]");
 
     /*public void clickHomeBtn()
     {
