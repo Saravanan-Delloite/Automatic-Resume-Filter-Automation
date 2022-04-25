@@ -6,9 +6,13 @@
     </listeners>
     <test name="LoginTest">
         <classes>
+
+            <class name="TestPage.SubjectExperteHomePageTest"/>
+
             <class name="TestPage.MainTest"/>
             <class name="TestPage.LoginPageTest"/>
             <class name="TestPage.LoginExpertTestPage"/>
+
         </classes>
     </test>
 </suite>
