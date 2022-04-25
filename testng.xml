@@ -3,7 +3,7 @@
 <suite name="All Test Suite">
     <test name="LoginTest">
         <classes>
-            <class name="TestPage.LoginPageTest"/>
+            <class name="TestPage.SubjectExperteHomePageTest"/>
         </classes>
     </test>
 </suite>
