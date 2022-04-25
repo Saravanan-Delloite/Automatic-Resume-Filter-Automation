@@ -14,6 +14,7 @@ public class HrHomePage {
     By email=By.xpath("//*[@id='emailAddress']");
     By password=By.xpath("//*[@id='password']");
     By submit=By.xpath("//*[@type='submit']");
+
     By underProgress=By.xpath("//div[2]/div/div[1]/div[2]/app-card/div/div/h5");
     By sendMail=By.xpath("//div[3]/button");
     By sendquiz=By.xpath("//div[1]/div[2]/button");
@@ -25,6 +26,10 @@ public class HrHomePage {
     By alert=By.xpath("//ngb-alert");
 
     By homePage=By.xpath("//*[@id='navbarNav']/ul/li[2]");
+
+    By userName=By.id("dropdownMenuButton");
+    By signOut=By.className("dropdown-item");
+
     public HrHomePage(WebDriver driver)
     {
         this.driver=driver;
@@ -199,6 +204,11 @@ public class HrHomePage {
     }
     public void close(){
         driver.quit();
+    }
+
+    public void signout(){
+        driver.findElement(userName).click();
+        driver.findElement(signOut).click();
     }
 
 

@@ -35,6 +35,7 @@ public class HrHomePageTest {
         subHome.SortDate();
         subHome.NameAsc();
         subHome.NameDesc();
+        subHome.signout();
 
     }
     @Test(priority = 2)
