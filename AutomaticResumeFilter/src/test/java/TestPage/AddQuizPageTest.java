@@ -1,35 +1,36 @@
 package TestPage;
 
 import Page.AddQuizPage;
+import Utilities.ListenerForExtentReport;
 import dataHandling.ReadDataFromExcel;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.testng.Assert;
-import org.testng.annotations.BeforeClass;
-import org.testng.annotations.BeforeMethod;
-import org.testng.annotations.Test;
+import org.testng.annotations.*;
+
+
+import static Utilities.SetupDriver.*;
 
 import java.io.IOException;
 import java.util.concurrent.TimeUnit;
+@Listeners(ListenerForExtentReport.class)
 
 public class AddQuizPageTest {
+
     ReadDataFromExcel readDataFromExcel=new ReadDataFromExcel();
     AddQuizPage addQuizPage;
-    WebDriver driver;
+
 
     @BeforeClass
     public void initialSetup() throws InterruptedException {
-        System.setProperty("webdriver.chrome.driver","C:\\Users\\karthikck\\Downloads\\chromedriver.exe");
-        driver=new ChromeDriver();
-        driver.manage().timeouts().implicitlyWait(50, TimeUnit.SECONDS);
-        driver.manage().window().maximize();
-        driver.get("https://resume-filter-frontend-urtjok3rza-wl.a.run.app/login");
+
+        getDriver().manage().timeouts().implicitlyWait(50, TimeUnit.SECONDS);
+
     }
 
     @Test(priority = 1)
     public void addQuizInvalidFloatTime() throws InterruptedException, IOException {
-        addQuizPage = new AddQuizPage(driver);
-        addQuizPage.login("expert","expert@123");
+        addQuizPage = new AddQuizPage(getDriver());
         Thread.sleep(5000);
         String role = readDataFromExcel.sendData(1, 5);
         String[] quizStatusArray = addQuizPage.addQuizBtnStatus(role);
@@ -502,6 +503,11 @@ public class AddQuizPageTest {
             Assert.assertEquals(quizStatusArray[1],"Quiz Added");
             System.out.println("Quiz added successfully...!!");
         }
+    }
+    @AfterClass
+    public void closeChrome()
+    {
+        closeBrowser();
     }
 
 }

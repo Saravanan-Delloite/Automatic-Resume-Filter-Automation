@@ -13,10 +13,10 @@ public class ReadingExcel {
     //    private String name, email, username, skills;
 //    private int password, confirmPassword;
     static XSSFWorkbook wbook;
-    static XSSFSheet sheet;
+    public static XSSFSheet sheet;
     public static void read()  {
         try {
-            FileInputStream inputStream = new FileInputStream("src/main/resources/ARF Signup.xlsx");
+            FileInputStream inputStream = new FileInputStream("C:\\Users\\yashmittal2\\Desktop\\Automatic-Resume-Filter-Automation\\AutomaticResumeFilter\\src\\resources\\ARF Signup.xlsx");
             wbook = new XSSFWorkbook(inputStream);
             sheet = wbook.getSheetAt(0);
         } catch (FileNotFoundException e) {

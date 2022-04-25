@@ -1,4 +1,5 @@
 package TestPage;
+import Utilities.ListenerForExtentReport;
 import dataHandling.ReadingData;
 import org.testng.Assert;
 import org.testng.annotations.BeforeTest;
@@ -6,26 +7,31 @@ import Page.*;
 
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
+import org.testng.annotations.Listeners;
 import org.testng.annotations.Test;
+import static Utilities.SetupDriver.*;
 
 import java.io.IOException;
+@Listeners(ListenerForExtentReport.class)
 
 public class HrHomePageTest {
-    static WebDriver driver;
-
+//    static WebDriver driver;
+    HrHomePage subHome;
+    HrHomePage hr;
     static ReadingData data=new ReadingData();
     @BeforeTest
-    private static void initialSetup(){
+    private void initialSetup(){
 
-        System.setProperty("webdriver.chrome.driver", "C:\\Users\\kaharshavardhan\\Downloads\\chromedriver.exe");
-        driver=new ChromeDriver();
-        driver.get("https://resume-filter-frontend-urtjok3rza-wl.a.run.app/login");
-        driver.manage().window().maximize();
+//        System.setProperty("webdriver.chrome.driver", "C:\\Users\\kaharshavardhan\\Downloads\\chromedriver.exe");
+//        driver=new ChromeDriver();
+//        driver.get("https://resume-filter-frontend-urtjok3rza-wl.a.run.app/login");
+//        driver.manage().window().maximize();
+        subHome=new HrHomePage(getDriver());
+        hr=new HrHomePage(getDriver());
     }
     @Test(priority = 1)
-    private static void HrHomePage() throws InterruptedException, IOException {
-        HrHomePage subHome=new HrHomePage(driver);
-        subHome.login();
+    private void HrHomePage() throws InterruptedException, IOException {
+//        HrHomePage subHome=new HrHomePage(driver);
         subHome.SortStartDate();
         subHome.StartDateAsc();
         subHome.StartDateDesc();
@@ -35,12 +41,12 @@ public class HrHomePageTest {
         subHome.SortDate();
         subHome.NameAsc();
         subHome.NameDesc();
-        subHome.signout();
+//        subHome.signout();
 
     }
     @Test(priority = 2)
-    public static void quizNotAdded() throws InterruptedException, IOException {
-        HrHomePage hr=new HrHomePage(driver);
+    public void quizNotAdded() throws InterruptedException, IOException {
+        //HrHomePage hr=new HrHomePage(driver);
         String underProgressRecuriment1= data.getData(1,1,0);
         String str= hr.underprogress(underProgressRecuriment1);
         try {
@@ -53,8 +59,8 @@ public class HrHomePageTest {
         Thread.sleep(5000);
     }
     @Test(priority = 3)
-    public static void quizsentAlready() throws InterruptedException, IOException  {
-        HrHomePage hr=new HrHomePage(driver);
+    public void quizsentAlready() throws InterruptedException, IOException  {
+       // HrHomePage hr=new HrHomePage(driver);
         String underProgressRecuriment2= data.getData(1,2,0);
         String str= hr.underprogress(underProgressRecuriment2);
         try {
@@ -67,8 +73,8 @@ public class HrHomePageTest {
         Thread.sleep(5000);
     }
     @Test(priority = 4)
-    public static void wrongTitle() throws InterruptedException, IOException  {
-        HrHomePage hr=new HrHomePage(driver);
+    public void wrongTitle() throws InterruptedException, IOException  {
+//        HrHomePage hr=new HrHomePage(driver);
         String underProgressRecuriment3= data.getData(1,3,0);
         String str= hr.underprogress(underProgressRecuriment3);
         try {
@@ -80,8 +86,8 @@ public class HrHomePageTest {
 
     }
     @Test(priority = 5)
-    public static void updateScores() throws InterruptedException, IOException  {
-        HrHomePage hr=new HrHomePage(driver);
+    public void updateScores() throws InterruptedException, IOException  {
+//        HrHomePage hr=new HrHomePage(driver);
         String completedRecuriment1= data.getData(1,4,0);
         hr.completed(completedRecuriment1);
         hr.Home();
@@ -89,16 +95,16 @@ public class HrHomePageTest {
 
     }
     @Test(priority = 6)
-    public static void scoredownload() throws InterruptedException, IOException  {
-        HrHomePage hr = new HrHomePage(driver);
+    public void scoredownload() throws InterruptedException, IOException  {
+//        HrHomePage hr = new HrHomePage(driver);
         String completedRecuriment2= data.getData(1,5,0);
         hr.completed(completedRecuriment2);
         hr.Home();
         Thread.sleep(5000);
     }
     @Test(priority = 7)
-    public static void hrNotAddedQuiz() throws InterruptedException, IOException  {
-        HrHomePage hr = new HrHomePage(driver);
+    public void hrNotAddedQuiz() throws InterruptedException, IOException  {
+//        HrHomePage hr = new HrHomePage(driver);
         String completedRecuriment3= data.getData(1,6,0);
        String str= hr.completed(completedRecuriment3);
         try {
@@ -111,8 +117,8 @@ public class HrHomePageTest {
         Thread.sleep(5000);
     }
     @Test(priority = 8)
-    public static void wrongRecuriment() throws InterruptedException, IOException  {
-        HrHomePage hr=new HrHomePage(driver);
+    public void wrongRecuriment() throws InterruptedException, IOException  {
+//        HrHomePage hr=new HrHomePage(driver);
         String completedRecuriment4= data.getData(1,7,0);
         String str= hr.completed(completedRecuriment4);
         try {
@@ -123,13 +129,7 @@ public class HrHomePageTest {
         }
 
     }
-    @Test(priority = 9)
-    public static void signout() throws InterruptedException {
-        SubjectExperteHomePage subHome=new SubjectExperteHomePage(driver);
-        subHome.signout();
-        Thread.sleep(5000);
-        subHome.close();
-    }
+
 
 
 

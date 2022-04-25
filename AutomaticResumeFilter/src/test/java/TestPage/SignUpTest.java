@@ -1,21 +1,31 @@
 package TestPage;
 
-import Page.DriverPage;
+import Page.*;
 //import PageLibrary.SignupOperation;
-import Page.SignupOperation;
-import Page.SignupPageDisplayAndEnable;
+import Utilities.Environment;
+import Utilities.ListenerForExtentReport;
 import org.testng.Assert;
-import org.testng.annotations.AfterTest;
-import org.testng.annotations.BeforeTest;
-import org.testng.annotations.Test;
+import org.testng.annotations.*;
 
-import java.io.IOException;
+import static Utilities.SetupDriver.*;
+
 import java.util.concurrent.TimeUnit;
+@Listeners(ListenerForExtentReport.class)
 
-public class MainTest extends DriverPage {
-    DriverPage dr = new DriverPage();
-    SignupPageDisplayAndEnable signup =new SignupPageDisplayAndEnable(driver);
-    SignupOperation operation= new SignupOperation(driver);
+
+public class SignUpTest {
+
+    SignupPageDisplayAndEnable signup;
+    SignupOperation operation;
+    @BeforeSuite
+    public void setup() {
+        setDriver();
+        getDriver().get(Environment.URL);
+        getDriver().manage().window().maximize();
+
+        signup =new SignupPageDisplayAndEnable(getDriver());
+        operation= new SignupOperation(getDriver());
+    }
 
 
 
@@ -25,8 +35,7 @@ public class MainTest extends DriverPage {
     @Deprecated
     public void openBrowser()
     {
-        dr.setup("chrome");
-        driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
+        getDriver().manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
     }
     @Test(priority = 1)
     public void signupPage()

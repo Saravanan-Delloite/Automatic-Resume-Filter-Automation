@@ -11,7 +11,7 @@ import java.io.IOException;
 
 public class ReadDataFromExcel {
     public String sendData(int i,int j) throws IOException {
-        String excelFilePath = "C:\\Users\\karthikck\\IdeaProjects\\Automatic-Resume-Filter-Automation\\AutomaticResumeFilter\\src\\resources\\quizData.xlsx";
+        String excelFilePath = "C:\\Users\\yashmittal2\\Desktop\\Automatic-Resume-Filter-Automation\\AutomaticResumeFilter\\src\\resources\\quizData.xlsx";
         FileInputStream fis = new FileInputStream(excelFilePath);
         XSSFWorkbook workbook = new XSSFWorkbook(fis);
         XSSFSheet sheet = workbook.getSheetAt(0);

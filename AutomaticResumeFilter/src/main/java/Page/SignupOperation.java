@@ -1,6 +1,7 @@
 package Page;
 
 import org.openqa.selenium.By;
+import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.Select;
@@ -54,6 +55,7 @@ public class SignupOperation extends SignupPageDisplayAndEnable{
         Select hr=new Select(element);
         hr.selectByValue("HR");
         try {
+            Thread.sleep(3000);
             driver.findElement(checkbox).click();
             Thread.sleep(3000);
         }
@@ -82,19 +84,24 @@ public class SignupOperation extends SignupPageDisplayAndEnable{
         driver.findElement(confirmPasswordTextField).sendKeys(confirmPassword1);
         skills = excel.sheet.getRow(2).getCell(5).getStringCellValue();
     }
-    public void subjectExpert()
-    {
+    public void subjectExpert() throws InterruptedException {
         WebElement element=driver.findElement(roleTextField);
         Select subjectExp=new Select(element);
         subjectExp.selectByValue("Subject Expert");
         try {
             driver.findElement(skill).sendKeys(skills);
-            driver.findElement(checkbox).click();
+            Thread.sleep(3000);
+            WebElement iAgree = driver.findElement(checkbox);
+            JavascriptExecutor jse = (JavascriptExecutor) driver;
+            jse.executeScript("arguments[0].click()", iAgree);
         }
         catch (Exception e) {
             e.printStackTrace();
         }
-        driver.findElement(letsgo).click();
+        Thread.sleep(3000);
+        WebElement clicksignup = driver.findElement(letsgo);
+        JavascriptExecutor jse = (JavascriptExecutor) driver;
+        jse.executeScript("arguments[0].click()", clicksignup);
         driver.findElement(dropdown).click();
         driver.findElement(logout).click();
     }

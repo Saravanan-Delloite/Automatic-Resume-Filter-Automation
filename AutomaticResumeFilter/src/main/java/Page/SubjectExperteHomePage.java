@@ -34,12 +34,7 @@ public class SubjectExperteHomePage {
         this.driver=driver;
     }
 
-    public void login(String mail,String passWord) throws InterruptedException {
-        driver.findElement(email).sendKeys(mail);
-        driver.findElement(password).sendKeys(passWord);
-        driver.findElement(submit).click();
-        Thread.sleep(5000);
-    }
+
 
     public void dateDropdown(int index){
         WebElement date=driver.findElement(dateDropdown);
