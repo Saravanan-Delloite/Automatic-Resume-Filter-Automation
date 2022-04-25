@@ -32,6 +32,13 @@ public class AddQuizPage {
     By dateErrorMsg =By.xpath("//div[text()=' End Date is required. ']");
     By timeErrorMsg = By.xpath("//div[text()=' Time Limit is required. ']");
 
+    By errorMsg = By.xpath("ngb-alert[type='danger']");
+    By closeBtn = By.xpath("button[class='btn-close']");
+
+    By dropdown = By.xpath("//div[@class='dropdown-toggle profile dropdown']");
+    By logoutBtn = By.xpath("//a[text()='Signout']");
+
+
     public void clickHomeBtn(){
         driver.findElement(homeBtn).click();
     }
@@ -59,22 +66,28 @@ public class AddQuizPage {
     }
 
 
-    public int addQuizBtnStatus(String role) {
+    public String[] addQuizBtnStatus(String role) {
         List<WebElement> title=driver.findElements(By.className("card-title"));
         List<WebElement> quizStatus=driver.findElements(By.id("btn"));
         int res=0;
+        String msg = "";
         for(int index=0;index<title.size();index++) {
             if((title.get(index).getText()).equals(role) && (quizStatus.get(index)).isEnabled()){
                 res=1;
+                msg = (quizStatus.get(index)).getText();
             }
             else if(!(title.get(index).getText()).equals(role)){
                 res=-1;
             }
             else{
                 res=0;
+                msg = (quizStatus.get(index)).getText();
             }
         }
-        return res;
+        String[] addQuizBtnStatus = new String[2];
+        addQuizBtnStatus[0] = String.valueOf(res);
+        addQuizBtnStatus[1] = msg;
+        return addQuizBtnStatus;
     }
 
     public void addQuizDetails (String link, String dueDate, String time, String questions){
@@ -106,5 +119,16 @@ public class AddQuizPage {
         arr[1] = driver.findElement(dateErrorMsg).getText();
         arr[2] = driver.findElement(timeErrorMsg).getText();
         return arr;
+    }
+
+    public String findErrorMsg(){
+        String msg = driver.findElement(errorMsg).getText();
+        driver.findElement(closeBtn).click();
+        return msg;
+    }
+
+    public void logout(){
+        driver.findElement(dropdown).click();
+        driver.findElement(logoutBtn).click();
     }
 }
