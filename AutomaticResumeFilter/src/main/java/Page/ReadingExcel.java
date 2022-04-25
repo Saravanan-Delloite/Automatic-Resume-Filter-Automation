@@ -13,7 +13,7 @@ public class ReadingExcel {
     public void readData()  {
         try {
 
-            String excelFilePath = "src/resources/ARF Signup.xlsx";
+            String excelFilePath = "C:\\Users\\yashmittal2\\Desktop\\Automatic-Resume-Filter-Automation\\AutomaticResumeFilter\\src\\resources\\ARF Signup.xlsx";
             FileInputStream inputStream = new FileInputStream(excelFilePath);
             XSSFWorkbook workbook = new XSSFWorkbook(inputStream);
             XSSFSheet sheet = workbook.getSheetAt(0);

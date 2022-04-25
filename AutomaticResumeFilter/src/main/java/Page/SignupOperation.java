@@ -42,6 +42,7 @@ public class SignupOperation extends SignupPageDisplayAndEnable{
         Select hr=new Select(element);
         hr.selectByValue("HR");
         try {
+            Thread.sleep(3000);
             driver.findElement(checkbox).click();
             Thread.sleep(3000);
         }

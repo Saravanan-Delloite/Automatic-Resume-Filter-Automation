@@ -10,6 +10,7 @@ public class SignupPageDisplayAndEnable extends DriverPage {
         this.driver = driver;
     }
 
+    static By Register_Button = By.xpath("//a[@href='/signup']");
     static By signup_Title = By.xpath("//div[@class='signup']");
     static By nameTextField = By.xpath("//*[text()='Name']/following-sibling::input");
     static By emailTextField = By.xpath("//*[text()='Email']/following-sibling::input");
@@ -91,6 +92,10 @@ public class SignupPageDisplayAndEnable extends DriverPage {
     {
         role = driver.findElement(roleTextField).isEnabled();
         return role;
+    }
+    public void clickRegister() throws InterruptedException {
+        driver.findElement(Register_Button).click();
+        Thread.sleep(2000);
     }
 
 }

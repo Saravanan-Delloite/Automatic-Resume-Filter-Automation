@@ -1,37 +1,55 @@
 package TestPage;
 
 import Page.DriverPage;
+import Page.LoginPage;
 import Page.SignupOperation;
 import Page.SignupPageDisplayAndEnable;
+import static Utilities.SetupDriver.*;
+
+import Utilities.Environment;
+import Utilities.SetupDriver;
+import org.openqa.selenium.WebDriver;
 import org.testng.Assert;
-import org.testng.annotations.AfterTest;
-import org.testng.annotations.BeforeTest;
-import org.testng.annotations.Test;
+import org.testng.annotations.*;
 
 import java.util.concurrent.TimeUnit;
 
-public class MainTest extends DriverPage {
-    DriverPage dr = new DriverPage();
-    SignupPageDisplayAndEnable signup =new SignupPageDisplayAndEnable(driver);
-    SignupOperation operation= new SignupOperation(driver);
+public class MainTest{
+//    WebDriver driver;
+    SignupPageDisplayAndEnable signup;
+    SignupOperation operation;
+    LoginPage login;
 
-
+    @BeforeSuite
+    public void setupDriver(){
+        setDriver();
+//        driver = getDriver();
+        getDriver().get(Environment.URL);
+        getDriver().manage().window().maximize();
+        signup = new SignupPageDisplayAndEnable(getDriver());
+        operation = new SignupOperation(getDriver());
+        login = new LoginPage(getDriver());
+    }
 
     //@Parameters("browserName")
     @BeforeTest
     @Deprecated
-    public void openBrowser()
-    {
-        dr.setup("chrome");
-        driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
-    }
+//    public void openBrowser()
+//    {
+//        getDriver().manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
+//    }
     @Test(priority = 1)
+    public void ClickRegister() throws InterruptedException {
+        login.clickRegister();
+        Thread.sleep(2000);
+    }
+    @Test(priority = 2)
     public void signupPage()
     {
         String text = signup.gettext();
         Assert.assertEquals(text,"Sign Up");
     }
-    @Test(priority = 2)
+    @Test(priority = 3)
     public void textFieldDisplay()
     {
         boolean name = signup.nameTextFieldDisplay();
@@ -52,7 +70,7 @@ public class MainTest extends DriverPage {
         boolean role = signup.roleTextFieldDisplay();
         Assert.assertEquals(role,true);
     }
-    @Test(priority = 3)
+    @Test(priority = 4)
     public void textFieldEnable()
     {
         boolean name = signup.nameTextFieldEnable();
@@ -75,24 +93,35 @@ public class MainTest extends DriverPage {
 
     }
 
-    @Test(priority = 4)
+    @Test(priority = 5)
     public void Signup() throws InterruptedException {
         operation.userSignup();
         operation.HR();
 //        operation.subjectExpert();
     }
 
-
-    @AfterTest
-    public void closeBrowser()
+    @Test(priority = 6)
+    public void clickProfile()
     {
-        try {
-            dr.terminate();
-        }
-        catch (Exception e)
-        {
-            System.out.println("Not able to close the browser");
-        }
+        login.clickProfile();
     }
+    @Test(priority = 7)
+    public void clickSignOut()
+    {
+        login.ClickSignOut();
+    }
+
+
+//    @AfterTest
+//    public void closeBrowser()
+//    {
+//        try {
+//            dr.terminate();
+//        }
+//        catch (Exception e)
+//        {
+//            System.out.println("Not able to close the browser");
+//        }
+//    }
 
 }
