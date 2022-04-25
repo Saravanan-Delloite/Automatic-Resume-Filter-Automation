@@ -22,6 +22,7 @@ public class AddRecruitment
 {
     static WebDriver driver;
     static JavascriptExecutor jse;
+    //
     static XSSFSheet sheet;
     @BeforeClass
     public void initialSetup() throws Exception
@@ -34,7 +35,7 @@ public class AddRecruitment
         driver.findElement(Add_recruitment_Page_Btn).click();
         driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(5));
     }
-    public static void login(String username, String password) throws InterruptedException {
+    public static void login(String username, String password) {
         driver.findElement(username_box).sendKeys(username);
         driver.findElement(password_box).sendKeys(password);
         driver.findElement(loginBtn).click();
