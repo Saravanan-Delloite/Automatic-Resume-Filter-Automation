@@ -500,7 +500,7 @@ public class AddQuizPageTest {
         }
         else{
             Assert.assertEquals(quizStatusArray[1],"Quiz Added");
-            System.out.println("Quiz added successfully..!!");
+            System.out.println("Quiz added successfully...!!");
         }
     }
 
