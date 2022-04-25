@@ -1,38 +1,33 @@
 package TestPage;
 
 import Page.SubjectExperteHomePage;
+import Utilities.ListenerForExtentReport;
 import dataHandling.ReadingData;
-import org.apache.poi.ss.formula.functions.T;
-import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.chrome.ChromeDriver;
 import org.testng.Assert;
-import org.testng.annotations.BeforeTest;
+import org.testng.annotations.BeforeSuite;
+import org.testng.annotations.Listeners;
 import org.testng.annotations.Test;
-
+import static Utilities.SetupDriver.*;
 import java.io.IOException;
+@Listeners(ListenerForExtentReport.class)
 
 
 
 public class SubjectExperteHomePageTest {
-    static WebDriver driver;
-    static SubjectExperteHomePage subHome=new SubjectExperteHomePage(driver);
-    static ReadingData data=new ReadingData();
-    @Test(priority = 1)
-    private static void initialSetup(){
 
-        System.setProperty("webdriver.chrome.driver", "C:\\Users\\kaharshavardhan\\Downloads\\chromedriver.exe");
-        driver=new ChromeDriver();
-        driver.get("https://resume-filter-frontend-urtjok3rza-wl.a.run.app/login");
-        driver.manage().window().maximize();
+    SubjectExperteHomePage subHome;
+    static ReadingData data=new ReadingData();
+    @BeforeSuite
+    private void initialSetup(){
+
+        subHome = new SubjectExperteHomePage(getDriver());
 
     }
-    @Test(priority = 2)
-    private static void checkOrder() throws InterruptedException, IOException {
-        SubjectExperteHomePage subHome=new SubjectExperteHomePage(driver);
-        subHome.login("qwer1234","qwer1234");
+    @Test(priority = 1)
+    public void checkOrder() throws InterruptedException, IOException {
 
 
-//        subHome.countingNoOfRecuriment();
+        Thread.sleep(3000);
         Boolean status=subHome.sortByNameInAscending();
         try {
             Assert.assertEquals(status, true);
@@ -49,9 +44,9 @@ public class SubjectExperteHomePageTest {
         }
 
     }
-    @Test(priority = 3)
-    public static void addQuiz() throws InterruptedException, IOException {
-        SubjectExperteHomePage subHome=new SubjectExperteHomePage(driver);
+    @Test(priority = 2)
+    public void addQuiz() throws InterruptedException, IOException {
+
         String title1=data.getData(0,1,0);
          String str=subHome.quizadding(title1);
          try {
@@ -63,9 +58,8 @@ public class SubjectExperteHomePageTest {
          Thread.sleep(5000);
 
     }
-    @Test(priority = 4)
-    public static void quizAdded() throws InterruptedException, IOException {
-        SubjectExperteHomePage subHome=new SubjectExperteHomePage(driver);
+    @Test(priority = 3)
+    public void quizAdded() throws InterruptedException, IOException {
         String title2=data.getData(0,2,0);
 
         String str=subHome.quizadding(title2);
@@ -79,9 +73,8 @@ public class SubjectExperteHomePageTest {
         Thread.sleep(5000);
 
     }
-    @Test(priority = 5)
-    public static void invalidrecuriment() throws InterruptedException, IOException {
-        SubjectExperteHomePage subHome=new SubjectExperteHomePage(driver);
+    @Test(priority = 4)
+    public void invalidrecuriment() throws InterruptedException, IOException {
         String title3=data.getData(0,3,0);
         String str=subHome.quizadding(title3);
         //System.out.println(str);
@@ -93,12 +86,6 @@ public class SubjectExperteHomePageTest {
         }
 
 
-    }
-    @Test(priority = 6)
-    public static void signout() throws InterruptedException {
-        SubjectExperteHomePage subHome=new SubjectExperteHomePage(driver);
-       subHome.signout();
-       subHome.close();
     }
 
 

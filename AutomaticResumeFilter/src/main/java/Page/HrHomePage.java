@@ -164,7 +164,7 @@ public class HrHomePage {
                     Robot rb;
                     rb = new Robot();
                     rb.delay(2000);
-                    StringSelection ss = new StringSelection("C:\\Users\\kaharshavardhan\\Downloads\\score.csv");
+                    StringSelection ss = new StringSelection("C:\\Users\\yashmittal2\\Desktop\\Automatic-Resume-Filter-Automation\\AutomaticResumeFilter\\src\\resources\\score.csv");
                     Toolkit.getDefaultToolkit().getSystemClipboard().setContents(ss, null);
                     rb.keyPress(KeyEvent.VK_CONTROL);
                     rb.keyPress(KeyEvent.VK_V);

@@ -5,10 +5,13 @@ import Page.ForgotPasswordPage;
 import Page.LoginPage;
 import Utilities.Environment;
 import Utilities.ExcelDataConfig;
+import Utilities.ListenerForExtentReport;
 import org.testng.Assert;
 import org.testng.annotations.BeforeClass;
+import org.testng.annotations.Listeners;
 import org.testng.annotations.Test;
 import static Utilities.SetupDriver.*;
+@Listeners(ListenerForExtentReport.class)
 
 public class LoginPageTest {
 
@@ -107,15 +110,4 @@ public class LoginPageTest {
         login.ClickLogin();
     }
 
-    @Test(priority = 14)
-    public void ClickProfile()
-    {
-        login.clickProfile();
-    }
-
-    @Test(priority = 15)
-    public void ClickSignOut()
-    {
-        login.ClickSignOut();
-    }
 }

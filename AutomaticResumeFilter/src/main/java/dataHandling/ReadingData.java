@@ -11,7 +11,7 @@ import java.io.IOException;
 
 public class ReadingData {
     public String getData(int sht, int rowNo, int colNo) throws IOException {
-        String excelFilePath = "C:\\Users\\kaharshavardhan\\Automatic-Resume-Filter-Automation\\AutomaticResumeFilter\\src\\resources\\subjectExperteHomePage.xlsx";
+        String excelFilePath = "C:\\Users\\yashmittal2\\Desktop\\Automatic-Resume-Filter-Automation\\AutomaticResumeFilter\\src\\resources\\subjectExperteHomePage.xlsx";
         FileInputStream fis = new FileInputStream(excelFilePath);
         XSSFWorkbook workbook = new XSSFWorkbook(fis);
         XSSFSheet sheet = workbook.getSheetAt(sht);
