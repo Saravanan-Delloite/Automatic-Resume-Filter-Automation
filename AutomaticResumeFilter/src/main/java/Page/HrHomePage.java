@@ -11,6 +11,8 @@ public class HrHomePage {
     By email=By.xpath("//*[@id='emailAddress']");
     By password=By.xpath("//*[@id='password']");
     By submit=By.xpath("//*[@type='submit']");
+    By userName=By.id("dropdownMenuButton");
+    By signOut=By.className("dropdown-item");
     public HrHomePage(WebDriver driver)
     {
         this.driver=driver;
@@ -89,6 +91,10 @@ public class HrHomePage {
         Thread.sleep(2000);
         Select Desk = new Select(orderBtnClick);
         Desk.selectByVisibleText("Descending");
+    }
+    public void signout(){
+        driver.findElement(userName).click();
+        driver.findElement(signOut).click();
     }
 
 }
