@@ -1,5 +1,6 @@
 package TestPage;
 
+import Page.DriverPage;
 import Page.ForgotPasswordPage;
 import Page.LoginPage;
 import Utilities.Environment;
@@ -18,9 +19,10 @@ public class LoginPageTest {
 
     @BeforeClass
     public void setup() {
-        setDriver();
-        getDriver().get(Environment.URL);
-        getDriver().manage().window().maximize();
+//        setDriver();
+//        getDriver().get(Environment.URL);
+//        getDriver().manage().window().maximize();
+
 
         login = new LoginPage(getDriver());
         forgotPassword = new ForgotPasswordPage(getDriver());

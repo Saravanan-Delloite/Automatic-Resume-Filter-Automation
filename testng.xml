@@ -3,6 +3,7 @@
 <suite name="All Test Suite">
     <test name="LoginTest">
         <classes>
+            <class name="TestPage.MainTest"/>
             <class name="TestPage.LoginPageTest"/>
             <class name="TestPage.LoginExpertTestPage"/>
         </classes>

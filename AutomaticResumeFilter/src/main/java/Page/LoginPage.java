@@ -99,5 +99,10 @@ public class LoginPage {
         signout.click();
     }
 
+    public void clickRegister()
+    {
+        signUpButton.click();
+    }
+
 }
 
