@@ -1,55 +1,41 @@
 package TestPage;
 
 import Page.DriverPage;
-import Page.LoginPage;
+//import PageLibrary.SignupOperation;
 import Page.SignupOperation;
 import Page.SignupPageDisplayAndEnable;
-import static Utilities.SetupDriver.*;
-
-import Utilities.Environment;
-import Utilities.SetupDriver;
-import org.openqa.selenium.WebDriver;
 import org.testng.Assert;
-import org.testng.annotations.*;
+import org.testng.annotations.AfterTest;
+import org.testng.annotations.BeforeTest;
+import org.testng.annotations.Test;
 
+import java.io.IOException;
 import java.util.concurrent.TimeUnit;
 
-public class MainTest{
-//    WebDriver driver;
-    SignupPageDisplayAndEnable signup;
-    SignupOperation operation;
-    LoginPage login;
+public class MainTest extends DriverPage {
+    DriverPage dr = new DriverPage();
+    SignupPageDisplayAndEnable signup =new SignupPageDisplayAndEnable(driver);
+    SignupOperation operation= new SignupOperation(driver);
 
-    @BeforeSuite
-    public void setupDriver(){
-        setDriver();
-//        driver = getDriver();
-        getDriver().get(Environment.URL);
-        getDriver().manage().window().maximize();
-        signup = new SignupPageDisplayAndEnable(getDriver());
-        operation = new SignupOperation(getDriver());
-        login = new LoginPage(getDriver());
-    }
+
+
 
     //@Parameters("browserName")
     @BeforeTest
     @Deprecated
-//    public void openBrowser()
-//    {
-//        getDriver().manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
-//    }
-    @Test(priority = 1)
-    public void ClickRegister() throws InterruptedException {
-        login.clickRegister();
-        Thread.sleep(2000);
+    public void openBrowser()
+    {
+        dr.setup("chrome");
+        driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
     }
-    @Test(priority = 2)
+    @Test(priority = 1)
     public void signupPage()
     {
+        signup.clickRegister();
         String text = signup.gettext();
         Assert.assertEquals(text,"Sign Up");
     }
-    @Test(priority = 3)
+    @Test(priority = 2)
     public void textFieldDisplay()
     {
         boolean name = signup.nameTextFieldDisplay();
@@ -70,7 +56,7 @@ public class MainTest{
         boolean role = signup.roleTextFieldDisplay();
         Assert.assertEquals(role,true);
     }
-    @Test(priority = 4)
+    @Test(priority = 3)
     public void textFieldEnable()
     {
         boolean name = signup.nameTextFieldEnable();
@@ -93,22 +79,17 @@ public class MainTest{
 
     }
 
-    @Test(priority = 5)
-    public void Signup() throws InterruptedException {
-        operation.userSignup();
+    @Test(priority = 4)
+    public void SignupHR() throws InterruptedException {
+        operation.userSignupHR();
         operation.HR();
-//        operation.subjectExpert();
+        Thread.sleep(3000);
     }
-
-    @Test(priority = 6)
-    public void clickProfile()
-    {
-        login.clickProfile();
-    }
-    @Test(priority = 7)
-    public void clickSignOut()
-    {
-        login.ClickSignOut();
+    @Test(priority = 5)
+    public void SignupSubExp() throws InterruptedException {
+        operation.userSignupSubjectExpert();
+        operation.subjectExpert();
+        Thread.sleep(3000);
     }
 
 

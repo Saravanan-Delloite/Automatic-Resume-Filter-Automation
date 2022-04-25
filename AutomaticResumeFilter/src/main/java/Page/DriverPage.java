@@ -12,14 +12,14 @@ public class DriverPage {
             WebDriverManager.chromedriver().setup();
             driver = new ChromeDriver();
             driver.manage().window().maximize();
-            driver.get("https://resume-filter-frontend-urtjok3rza-wl.a.run.app/signup");
+            driver.get("https://resume-filter-frontend-urtjok3rza-wl.a.run.app/");
         }
         else if (browserName.equals("edge"))
         {
             WebDriverManager.edgedriver().setup();
             driver = new EdgeDriver();
             driver.manage().window().maximize();
-            driver.get("https://resume-filter-frontend-urtjok3rza-wl.a.run.app/signup");
+            driver.get("https://resume-filter-frontend-urtjok3rza-wl.a.run.app/");
         }
     }
     public static void terminate()
