@@ -1,4 +1,4 @@
-package PageLibrary;
+package Page;
 
 import org.apache.poi.xssf.usermodel.XSSFCell;
 import org.apache.poi.xssf.usermodel.XSSFRow;
@@ -15,8 +15,9 @@ public class ReadingExcel {
     static XSSFWorkbook wbook;
     public static XSSFSheet sheet;
     public static void read()  {
+        /*"C:\\Users\\yashmittal2\\Desktop\\Automatic-Resume-Filter-Automation\\AutomaticResumeFilter\\src\\resources\\ARF Signup.xlsx"*/
         try {
-            FileInputStream inputStream = new FileInputStream("C:\\Users\\yashmittal2\\Desktop\\Automatic-Resume-Filter-Automation\\AutomaticResumeFilter\\src\\resources\\ARF Signup.xlsx");
+            FileInputStream inputStream = new FileInputStream("AutomaticResumeFilter/src/resources/ARF Signup.xlsx");
             wbook = new XSSFWorkbook(inputStream);
             sheet = wbook.getSheetAt(0);
         } catch (FileNotFoundException e) {

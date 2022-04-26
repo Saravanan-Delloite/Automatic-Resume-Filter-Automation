@@ -9,17 +9,14 @@ import java.util.List;
 
 public class AddQuizPage {
     WebDriver driver;
-
     public AddQuizPage(WebDriver driver){
         this.driver = driver;
     }
-
     By username_box = By.xpath("//*[@id='emailAddress']");
     By password_box = By.xpath("//*[@id='password']");
     By loginBtn = By.xpath("//button[text()=' Login ']");
     By recruitmentTitle = By.className("card-title");
     By addQuizBtn =By.id("btn");
-
     By homeBtn = By.xpath("//a[text()='Home']");
     By quizLink = By.xpath("//*[@id='quizlink']");
     By date = By.xpath("//*[@id='date']");
@@ -27,14 +24,12 @@ public class AddQuizPage {
     By numberOfQue = By.xpath("//input[@formcontrolname='questions']");
     By reset = By.xpath("//button[@type='reset']");
     By submit = By.xpath("//button[text()=' Submit Quiz ']");
-
     By linkErrorMsg = By.xpath("//div[text()=' Quiz link is required. ']");
     By dateErrorMsg =By.xpath("//div[text()=' End Date is required. ']");
     By timeErrorMsg = By.xpath("//div[text()=' Time Limit is required. ']");
 
     By errorMsg = By.xpath("ngb-alert[type='danger']");
     By closeBtn = By.xpath("button[class='btn-close']");
-
     By dropdown = By.xpath("//div[@class='dropdown-toggle profile dropdown']");
     By logoutBtn = By.xpath("//a[text()='Signout']");
 

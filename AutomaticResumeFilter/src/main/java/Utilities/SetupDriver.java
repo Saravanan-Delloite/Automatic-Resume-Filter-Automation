@@ -6,7 +6,7 @@ import org.openqa.selenium.chrome.ChromeDriver;
 
 public class SetupDriver {
 
-    private static ThreadLocal<WebDriver> driver = new ThreadLocal<WebDriver>();
+    public static ThreadLocal<WebDriver> driver = new ThreadLocal<WebDriver>();
 
     public static  void setDriver() {
         WebDriverManager.chromedriver().setup();
