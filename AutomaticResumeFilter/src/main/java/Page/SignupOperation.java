@@ -10,7 +10,7 @@ import org.openqa.selenium.support.ui.Select;
 
 public class SignupOperation extends SignupPageDisplayAndEnable{
     static String skills;
-    static PageLibrary.ReadingExcel excel = new PageLibrary.ReadingExcel();
+    static Page.ReadingExcel excel = new Page.ReadingExcel();
 
 
     static By checkbox = By.xpath("//input[@type='checkbox']");
@@ -95,7 +95,8 @@ public class SignupOperation extends SignupPageDisplayAndEnable{
             JavascriptExecutor jse = (JavascriptExecutor) driver;
             jse.executeScript("arguments[0].click()", iAgree);
         }
-        catch (Exception e) {
+        catch (Exception e)
+        {
             e.printStackTrace();
         }
         Thread.sleep(3000);

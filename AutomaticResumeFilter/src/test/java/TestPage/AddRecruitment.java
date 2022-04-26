@@ -63,7 +63,7 @@ public class AddRecruitment
     @Test(priority = 10)
     public void checkAddrecuritBtnDisabled()
     {
-        Assert.assertFalse(add.checkResetBtn());
+        Assert.assertFalse(add.checkRecuitmentBtn());
     }
     @Test(priority = 11)
     public void sendData() throws Exception {
@@ -74,9 +74,9 @@ public class AddRecruitment
     {
         Assert.assertTrue(add.checkRecuitmentBtn());
     }
-    @AfterClass
-    public void clickRecruitmentBtn()
+    @Test(priority = 13)
+    public void clickRecruitmentBtn() throws Exception
     {
-        add.checkRecuitmentBtn();
+        add.clickAddRecruitmentBtn();
     }
 }

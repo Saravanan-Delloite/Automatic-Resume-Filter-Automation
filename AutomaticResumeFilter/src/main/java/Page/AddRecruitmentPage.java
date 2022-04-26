@@ -109,7 +109,7 @@ public class AddRecruitmentPage
         sendValues(Skill,String.valueOf(sheets.getRow(1).getCell(2)));
         Thread.sleep(500);
         jse.executeScript("window.scrollBy(0,850)");
-        Thread.sleep(250);
+        Thread.sleep(500);
         selectListElem(Expert,String.valueOf(sheets.getRow(1).getCell(3)));
         Thread.sleep(300);
         sendValues(Start_Date,String.valueOf(sheets.getRow(1).getCell(4)));
@@ -126,7 +126,9 @@ public class AddRecruitmentPage
     }
     public void clickAddRecruitmentBtn() throws Exception
     {
-        driver.findElement(Add_Recruitment_Btn).click();
+        WebElement add_Recruitment = driver.findElement(Add_Recruitment_Btn);
+        JavascriptExecutor jse = (JavascriptExecutor) driver;
+        jse.executeScript("arguments[0].click()", add_Recruitment);
         Thread.sleep(6000);
     }
     public  void selectListElem(By userRole,String role)
@@ -141,7 +143,7 @@ public class AddRecruitmentPage
     }
     public void initalizeXlsheet() throws Exception
     {
-        FileInputStream fs = new FileInputStream("src/resources/RecuitmentData.xlsx");
+        FileInputStream fs = new FileInputStream("AutomaticResumeFilter/src/resources/RecuitmentData.xlsx");
         //Creating a workbook
         XSSFWorkbook workbook = new XSSFWorkbook(fs);
         sheets = workbook.getSheetAt(0);
