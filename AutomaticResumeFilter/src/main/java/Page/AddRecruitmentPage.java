@@ -112,7 +112,7 @@ public class AddRecruitmentPage
         Thread.sleep(300);
         sendValues(End_Date,String.valueOf(sheets.getRow(1).getCell(5)));
         Thread.sleep(300);
-        sendValues(Upload_Resume,"C:\\Users\\ksaravanakumar\\Documents\\Automatic-Resume-Filter-Automation\\AutomaticResumeFilter\\src\\resources\\Resumes.zip");
+        sendValues(Upload_Resume,"C:\\Users\\yashmittal2\\Desktop\\Automatic-Resume-Filter-Automation\\AutomaticResumeFilter\\src\\resources\\Resumes.zip");
         Thread.sleep(5000);
     }
     public boolean checkRecuitmentBtn()
@@ -124,7 +124,7 @@ public class AddRecruitmentPage
         WebElement add_Recruitment = driver.findElement(Add_Recruitment_Btn);
         JavascriptExecutor jse = (JavascriptExecutor) driver;
         jse.executeScript("arguments[0].click()", add_Recruitment);
-        Thread.sleep(6000);
+        Thread.sleep(15000);
     }
     public  void selectListElem(By userRole,String role)
     {

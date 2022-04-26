@@ -39,7 +39,9 @@ public class AddQuizPage {
     }
 
     public void clickResetBtn(){
-        driver.findElement(reset).click();
+        WebElement clickReset = driver.findElement(reset);
+        JavascriptExecutor jse = (JavascriptExecutor) driver;
+        jse.executeScript("arguments[0].click()",clickReset );
     }
 
     public void login(String username, String password) throws InterruptedException {
@@ -95,7 +97,10 @@ public class AddQuizPage {
 
     public boolean clickSubmitBtn(){
         if(driver.findElement(submit).isEnabled()){
-            driver.findElement(submit).click();
+            WebElement clickSubmit = driver.findElement(submit);
+            JavascriptExecutor jse = (JavascriptExecutor) driver;
+            jse.executeScript("arguments[0].click()", clickSubmit);
+
             return true;
         }else{
             return false;

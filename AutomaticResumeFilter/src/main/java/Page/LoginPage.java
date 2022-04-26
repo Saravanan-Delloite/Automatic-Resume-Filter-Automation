@@ -1,6 +1,7 @@
 package Page;
 
 
+import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
@@ -92,11 +93,16 @@ public class LoginPage {
 
     public void clickProfile() {
         driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(5));
-        profile.click();
+        WebElement clickprofile = profile;
+        JavascriptExecutor jse = (JavascriptExecutor) driver;
+        jse.executeScript("arguments[0].click()", clickprofile);
+
     }
 
     public void ClickSignOut() {
-        signout.click();
+        WebElement clickSignOut = signout;
+        JavascriptExecutor jse = (JavascriptExecutor) driver;
+        jse.executeScript("arguments[0].click()", clickSignOut);
     }
 
     public void clickRegister()
