@@ -9,9 +9,11 @@
         <classes>
             <class name="TestPage.SignUpTest"/>
             <class name="TestPage.LoginPageTest"/>
-            <class name="TestPage.AddRecruitment"/>
-
-
+            <class name="TestPage.HrHomePageTest"/>
+            <class name="TestPage.AddRecruitmentTest"/>
+            <class name="TestPage.LoginExpertTestPage"/>
+            <class name="TestPage.SubjectExperteHomePageTest"/>
+            <class name="TestPage.AddQuizPageTest"/>
         </classes>
     </test>
 </suite>
