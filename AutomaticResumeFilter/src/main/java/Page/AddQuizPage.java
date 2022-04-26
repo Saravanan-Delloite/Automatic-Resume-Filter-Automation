@@ -66,7 +66,8 @@ public class AddQuizPage {
         List<WebElement> quizStatus=driver.findElements(By.id("btn"));
         int res=0;
         String msg = "";
-        for(int index=0;index<title.size();index++) {
+        for(int index=0;index<title.size();index++)
+        {
             if((title.get(index).getText()).equals(role) && (quizStatus.get(index)).isEnabled()){
                 res=1;
                 msg = (quizStatus.get(index)).getText();

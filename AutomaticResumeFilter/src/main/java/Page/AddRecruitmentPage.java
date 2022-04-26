@@ -38,10 +38,6 @@ public class AddRecruitmentPage
 
     public void initialSetup() throws Exception
     {
-        /*System.setProperty("webdriver.chrome.driver","C:\\Users\\ksaravanakumar\\Documents\\chromedriver.exe");
-        driver=new ChromeDriver();
-        driver.manage().window().maximize();
-        driver.get("https://resume-filter-frontend-urtjok3rza-wl.a.run.app/login");*/
         driver.findElement(Add_recruitment_Page_Btn).click();
         driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(5));
     }
@@ -118,7 +114,6 @@ public class AddRecruitmentPage
         Thread.sleep(300);
         sendValues(Upload_Resume,"C:\\Users\\ksaravanakumar\\Documents\\Automatic-Resume-Filter-Automation\\AutomaticResumeFilter\\src\\resources\\Resumes.zip");
         Thread.sleep(5000);
-        /*jse.executeScript("window.scrollBy(0,850)");*/
     }
     public boolean checkRecuitmentBtn()
     {
