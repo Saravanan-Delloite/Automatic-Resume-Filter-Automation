@@ -3,6 +3,7 @@ package TestPage;
 import Page.SubjectExperteHomePage;
 import Utilities.ListenerForExtentReport;
 import dataHandling.ReadingData;
+import org.apache.log4j.Logger;
 import org.testng.Assert;
 import org.testng.annotations.BeforeSuite;
 import org.testng.annotations.Listeners;
@@ -16,6 +17,7 @@ import java.io.IOException;
 public class SubjectExperteHomePageTest {
 
     SubjectExperteHomePage subHome;
+    Logger logger=Logger.getLogger(HrHomePageTest.class);
     static ReadingData data=new ReadingData();
     @BeforeSuite
     private void initialSetup(){
@@ -29,18 +31,20 @@ public class SubjectExperteHomePageTest {
 
         Thread.sleep(3000);
         Boolean status=subHome.sortByNameInAscending();
+        //checking names sorted in ascending order
         try {
             Assert.assertEquals(status, true);
         }
         catch (AssertionError e){
-            System.out.println("assertion error");
+            logger.error("assertion error");
         }
         Boolean status1=subHome.sortByNameInDescedning();
+        //checking names sorted in descending order
         try {
             Assert.assertEquals(status1, true);
         }
         catch (AssertionError e){
-            System.out.println("assertion error");
+            logger.error("assertion error");
         }
 
     }
@@ -49,12 +53,12 @@ public class SubjectExperteHomePageTest {
         String title2=data.getData(0,1,0);
 
         String str=subHome.quizadding(title2);
-        // System.out.println(str);
+        // checking quiz added or not
         try {
             Assert.assertEquals(str, "Add Quiz");
         }
         catch (AssertionError e){
-            System.out.println("assertion error2");
+            logger.error("assertion error2");
         }
 
     }
@@ -63,11 +67,12 @@ public class SubjectExperteHomePageTest {
 
         String title1=data.getData(0,2,0);
          String str=subHome.quizadding(title1);
+        // checking quiz added or not
          try {
              Assert.assertEquals(str, "Quiz Added");
          }
          catch (AssertionError e){
-             System.out.println("assertion error1");
+             logger.error("assertion error1");
          }
          Thread.sleep(5000);
 
@@ -77,12 +82,12 @@ public class SubjectExperteHomePageTest {
     public void invalidrecuriment() throws InterruptedException, IOException {
         String title3=data.getData(0,3,0);
         String str=subHome.quizadding(title3);
-        //System.out.println(str);
+        //checking by giving wrong title
         try {
             Assert.assertEquals(str, "Title not found");
         }
         catch (AssertionError e){
-            System.out.println("assertion error3");
+            logger.error("assertion error3");
         }
 
 

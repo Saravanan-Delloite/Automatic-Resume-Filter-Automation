@@ -1,5 +1,6 @@
 package Page;
 
+import org.apache.log4j.Logger;
 import org.openqa.selenium.*;
 import org.openqa.selenium.support.ui.Select;
 
@@ -12,6 +13,7 @@ import java.util.concurrent.TimeUnit;
 
 public class SubjectExperteHomePage {
     WebDriver driver;
+    Logger logger=Logger.getLogger(SubjectExperteHomePage.class);
     By email=By.xpath("//*[@id='emailAddress']");
     By password=By.xpath("//*[@id='password']");
     By submit=By.xpath("//*[@type='submit']");
@@ -48,6 +50,7 @@ public class SubjectExperteHomePage {
         selectOrder.selectByIndex(index);
     }
     public boolean sortByNameInAscending() throws InterruptedException {
+        // sorting recuriments by names in ascending order
         dateDropdown(1);
         dateDropdown(0);
         orderDropdown(1);
@@ -59,6 +62,7 @@ public class SubjectExperteHomePage {
         return flag;
     }
     public boolean listSortedInAscending(List<WebElement> title,int size) {
+        // checking details present in ascending order
         for (int index = 0; index < size; index++) {
             for (int index1 = index + 1; index1 < size; index1++) {
                 if (title.get(index).getText().charAt(0) > title.get(index1).getText()
@@ -73,6 +77,7 @@ public class SubjectExperteHomePage {
         return true;
     }
     public boolean sortByNameInDescedning() throws InterruptedException {
+        //sorting recuriments by names in descending order
         orderDropdown(2);
         Thread.sleep(5000);
         List<WebElement> title=driver.findElements(recurimentTitle);
@@ -82,6 +87,7 @@ public class SubjectExperteHomePage {
         return flag;
     }
     public boolean listSortedInDescending(List<WebElement> title,int size) {
+        //checking names got sorted in descending order
         for (int index = 0; index < size; index++) {
             for (int index1 = index + 1; index1 < size; index1++) {
                 if (title.get(index).getText().charAt(0) < title.get(index1).getText()
@@ -94,7 +100,9 @@ public class SubjectExperteHomePage {
         return true;
     }
     public String quizadding(String role)throws InterruptedException {
+        //getting recuriments names
         List<WebElement> title=driver.findElements(recurimentTitle);
+        //getting quiz status
         List<WebElement> quizStatus=driver.findElements(quizstatus);
         int count=0;
         String quiz="Add Quiz";
@@ -102,7 +110,6 @@ public class SubjectExperteHomePage {
         for(int index=0;index<title.size();index++) {
             if((title.get(index).getText()).equals(role)&&(quizStatus.get(index).getText()).equals(quiz)){
                 message=quizStatus.get(index).getText();
-                System.out.println("found");
                 JavascriptExecutor jse=(JavascriptExecutor)driver;
                 jse.executeScript("arguments[0].scrollIntoView()",quizStatus.get(index));
                 jse.executeScript("arguments[0].click()",quizStatus.get(index));
@@ -110,31 +117,32 @@ public class SubjectExperteHomePage {
                Home();
                 count++;
                 break;
-
             }
             if((title.get(index).getText()).equals(role)&&!(quizStatus.get(index).getText()).equals(quiz)){
                 JavascriptExecutor jse=(JavascriptExecutor)driver;
                 jse.executeScript("arguments[0].scrollIntoView()",quizStatus.get(index));
                 String message1=quizStatus.get(index).getText();
                 count++;
-                if(!(quizStatus.get(index).isEnabled()))
-                return message1;
-
+                if(!(quizStatus.get(index).isEnabled())) {
+                    logger.info("quiz already added");
+                    return message1;
+                }
             }
         }
         if(count==0){
+            logger.info("recuriment not present");
             return "Title not found";
         }
         return message;
     }
     public void signout(){
+        //signout
         driver.findElement(userName).click();
         driver.findElement(signOut).click();
     }
     public void Home() throws InterruptedException {
         JavascriptExecutor jse=(JavascriptExecutor)driver;
         WebElement homeButton=driver.findElement(homePage);
-        System.out.println("i");
         Thread.sleep(1000);
         jse.executeScript("arguments[0].scrollIntoView()",homeButton);
         jse.executeScript("arguments[0].click()",homeButton);

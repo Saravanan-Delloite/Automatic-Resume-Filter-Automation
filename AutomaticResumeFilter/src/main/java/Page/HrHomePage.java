@@ -1,5 +1,6 @@
 package Page;
 
+import org.apache.log4j.Logger;
 import org.openqa.selenium.*;
 import org.openqa.selenium.support.ui.Select;
 
@@ -12,6 +13,7 @@ import static java.lang.Thread.sleep;
 
 
 public class HrHomePage {
+    Logger logger=Logger.getLogger(HrHomePage.class);
     WebDriver driver;
     By email=By.xpath("//*[@id='emailAddress']");
     By password=By.xpath("//*[@id='password']");
@@ -114,8 +116,10 @@ public class HrHomePage {
     }
     public String underprogress(String recuriment) throws InterruptedException {
         int count=0;
+        //getting all under progress recuriments title
         List<WebElement> title=driver.findElements(underProgress);
         for (WebElement webElement : title) {
+            //checking the title
             if (webElement.getText().equals(recuriment)) {
                 count++;
                 JavascriptExecutor jse = (JavascriptExecutor) driver;
@@ -124,22 +128,25 @@ public class HrHomePage {
                 sleep(3000);
                 //driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
                 try {
+                    //checking popup
                     driver.findElement(sendMail).click();
                     sleep(5000);
                     String alert=driver.findElement(emailStatus).getText();
                     sleep(2000);
                     WebElement sendQuiz = driver.findElement(sendquiz);
                     if (!(sendQuiz.isEnabled())) {
-                        //System.out.println("quiz should be added by hr");
+                        logger.info("quiz should be added by hr");
                         return alert;
                     }
                 } catch (ElementNotInteractableException e) {
-                    //System.out.println("quiz added already by hr");
+                    //checking quiz button enabled or not
+                    logger.info("quiz added already by hr");
                     try {
                         driver.findElement(sendquiz).click();
                     } catch (ElementClickInterceptedException k) {
                         WebElement sendQuiz = driver.findElement(sendquiz);
                         if(!(sendQuiz.isEnabled())) {
+                            logger.info("quiz already sent");
                             String str=driver.findElement(sendquiz).getText();
                             return str;
                         }
@@ -149,6 +156,7 @@ public class HrHomePage {
             }
         }
         if(count==0){
+            logger.info("title not present");
             return "Title not present";
         }
 
@@ -156,12 +164,11 @@ public class HrHomePage {
     }
     public String completed(String recuriment) throws InterruptedException {
         //driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
-       // allRecuriment();
-        //Thread.sleep(5000);
-        System.out.println("harsha");
+        //getting all completed recuriments title
         List<WebElement> title=driver.findElements(completed);
         int count=0;
         for (WebElement webElement : title) {
+            //checking recuriment title
             if (webElement.getText().equals(recuriment)) {
                 JavascriptExecutor jse = (JavascriptExecutor) driver;
                 //jse.executeScript("arguments[0].scrollIntoView()", webElement);
@@ -169,6 +176,7 @@ public class HrHomePage {
                 sleep(3000);
                 try {
                     driver.findElement(browseFile).click();
+                    //uploading file
                     Robot rb;
                     rb = new Robot();
                     rb.delay(2000);
@@ -181,17 +189,16 @@ public class HrHomePage {
                     rb.keyPress(KeyEvent.VK_ENTER);
                     rb.keyRelease(KeyEvent.VK_ENTER);
                     sleep(5000);
+                    //clicking on file
                     driver.findElement(download).click();
-                   // System.out.println("harsha");
                     return null;
 
                 } catch (ElementClickInterceptedException k){
-                    //System.out.println("quiz not sent to students by hr");
+                    logger.info("quiz not sent to students by hr");
                     String message=driver.findElement(alert).getText();
-                    // System.out.println(message);
                     return message;
                 } catch (ElementNotInteractableException e) {
-                    System.out.println("already uploaded scores");
+                    logger.info("already uploaded scores");
                     driver.findElement(download).click();
                     sleep(2000);
                     return null;
@@ -203,6 +210,7 @@ public class HrHomePage {
             }
         }
         if(count==0){
+            logger.info("title not present");
             return "Title not present";
         }
         return null;
@@ -212,6 +220,7 @@ public class HrHomePage {
 
     }
     public void allRecuriment() throws InterruptedException {
+        // click on allRecuriment
         driver.findElement(allRecuriment).click();
        Thread.sleep(1000);
     }
@@ -220,6 +229,7 @@ public class HrHomePage {
     }
 
     public void signout(){
+        //signout
         driver.findElement(userName).click();
         driver.findElement(signOut).click();
     }
