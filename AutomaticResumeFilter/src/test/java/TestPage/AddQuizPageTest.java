@@ -3,11 +3,12 @@ package TestPage;
 import Page.AddQuizPage;
 import Utilities.ListenerForExtentReport;
 import dataHandling.ReadDataFromExcel;
-import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.chrome.ChromeDriver;
+import org.apache.log4j.Logger;
 import org.testng.Assert;
 import org.testng.annotations.*;
 
+
+import javax.swing.plaf.SliderUI;
 
 import static Utilities.SetupDriver.*;
 
@@ -17,200 +18,227 @@ import java.util.concurrent.TimeUnit;
 
 public class AddQuizPageTest {
 
-    ReadDataFromExcel readDataFromExcel=new ReadDataFromExcel();
-    AddQuizPage addQuizPage;
+    Logger logger = Logger.getLogger(AddQuizPageTest.class);
 
+    ReadDataFromExcel excelData =new ReadDataFromExcel();
+    AddQuizPage addQuizPage;
+    String addQuizBtnEnabled = "Add Quiz";
+    String addQuizBtnDisabled = "Quiz Added";
 
     @BeforeClass
     public void initialSetup() throws InterruptedException {
-
         getDriver().manage().timeouts().implicitlyWait(50, TimeUnit.SECONDS);
-
     }
 
     @Test(priority = 1)
+    // Add quiz with time limit as float value
     public void addQuizInvalidFloatTime() throws InterruptedException, IOException {
         addQuizPage = new AddQuizPage(getDriver());
-        Thread.sleep(5000);
-        String role = readDataFromExcel.sendData(1, 5);
+        String role = excelData.sendData(1, 5);
+        // Checking the status of Add quiz Button
         String[] quizStatusArray = addQuizPage.addQuizBtnStatus(role);
         int quizStatus = Integer.parseInt(quizStatusArray[0]);
+        logger.info("Add quiz button status verification");
+        System.out.println(role);
         System.out.println(quizStatus);
+        System.out.println(quizStatusArray[1]);
         if(quizStatus == 1) {
             Assert.assertEquals(quizStatusArray[1],"Add Quiz");
             addQuizPage.clickAddQuizBtn(role);
             Thread.sleep(2000);
-            String link = readDataFromExcel.sendData(4, 0);
-            String date = (readDataFromExcel.sendData(4, 1)).replace("\"", "");
-            String time = readDataFromExcel.sendData(4, 2).replace("\"", "");
-            String questions = readDataFromExcel.sendData(4, 3).replace("\"", "");
+            String link = excelData.getQuizLink(4, 0);
+            String date = excelData.getQuizDate(4, 1);
+            String time = excelData.getQuizTime(4, 2);
+            String questions = excelData.getQuizQuestions(4, 3);
             addQuizPage.addQuizDetails(link, date, time, questions);
             addQuizPage.clickSubmitBtn();
             Thread.sleep(5000);
-            System.out.println("Quiz Details Filled");
+            logger.info("Quiz Details Filled");
         }
         else if(quizStatus == 0){
             Assert.assertEquals(quizStatusArray[1],"Quiz Added");
-            System.out.println("Quiz Already added");
+            logger.info("Quiz Already added");
         }
         else{
-            System.out.println("Check for correct Recruitment name and Add Quiz..!!");
+            logger.info("Check for correct Recruitment name and Add Quiz..!!");
         }
         addQuizPage.clickHomeBtn();
         Thread.sleep(2000);
+        // Checking the status of Add quiz Button after adding quiz details
         String[] quizStatusArray1 = addQuizPage.addQuizBtnStatus(role);
-        int quizStatus1 = Integer.parseInt(quizStatusArray1[0]);
-        validateAddQuizBtn(quizStatus1,quizStatusArray1);
+        Assert.assertEquals(quizStatusArray1[1], addQuizBtnEnabled);
+        logger.info("Quiz Status");
+        logger.info("Quiz added successfully...!!");
     }
 
     @Test(priority = 2)
+    //Add quiz with negative time limit
     public void addQuizInvalidNegativeTime() throws InterruptedException, IOException {
-
-        String role = readDataFromExcel.sendData(1, 5);
+        String role = excelData.sendData(1, 5);
+        // Checking the status of Add quiz Button
         String[] quizStatusArray = addQuizPage.addQuizBtnStatus(role);
+        logger.info("Add quiz button status verification");
         int quizStatus = Integer.parseInt(quizStatusArray[0]);
-        System.out.println(quizStatus);
         if(quizStatus == 1) {
             Assert.assertEquals(quizStatusArray[1],"Add Quiz");
+            Thread.sleep(2000);
             addQuizPage.clickAddQuizBtn(role);
             Thread.sleep(2000);
-            String link = readDataFromExcel.sendData(5, 0);
-            String date = (readDataFromExcel.sendData(5, 1)).replace("\"", "");
-            String time = readDataFromExcel.sendData(5, 2).replace("\"", "");
-            String questions = readDataFromExcel.sendData(5, 3).replace("\"", "");addQuizPage.addQuizDetails(link, date, time, questions);
+            String link = excelData.getQuizLink(5, 0);
+            String date = excelData.getQuizDate(5, 1);
+            String time = excelData.getQuizTime(5, 2);
+            String questions = excelData.getQuizQuestions(5, 3);
+            addQuizPage.addQuizDetails(link, date, time, questions);
             addQuizPage.clickSubmitBtn();
             Thread.sleep(5000);
-            System.out.println("Quiz Details Filled");
+            logger.info("Quiz Details Filled");
         }
         else if(quizStatus == 0){
             Assert.assertEquals(quizStatusArray[1],"Quiz Added");
-            System.out.println("Quiz Already added");
+            logger.info("Quiz Already added");
         }
         else{
-            System.out.println("Check for correct Recruitment name and Add Quiz..!!");
+            logger.info("Check for correct Recruitment name and Add Quiz..!!");
         }
         addQuizPage.clickHomeBtn();
         Thread.sleep(2000);
+        // Checking the status of Add quiz Button after adding quiz details
         String[] quizStatusArray1 = addQuizPage.addQuizBtnStatus(role);
-        int quizStatus1 = Integer.parseInt(quizStatusArray1[0]);
-        validateAddQuizBtn(quizStatus1,quizStatusArray1);
+        Assert.assertEquals(quizStatusArray1[1],addQuizBtnEnabled);
+        logger.info("Quiz Status");
+        logger.info("Quiz added successfully...!!");
     }
 
     @Test(priority = 3)
+    // Add quiz with time limit with invalid format(1hr)
     public void addQuizInvalidTimeFormat() throws InterruptedException, IOException {
-        String role = readDataFromExcel.sendData(1, 5);
+        String role = excelData.sendData(1, 5);
+        // Checking the status of Add quiz Button
         String[] quizStatusArray = addQuizPage.addQuizBtnStatus(role);
+        logger.info("Add quiz button status verification");
         int quizStatus = Integer.parseInt(quizStatusArray[0]);
-        System.out.println(quizStatus);
         if(quizStatus == 1) {
             Assert.assertEquals(quizStatusArray[1],"Add Quiz");
+            Thread.sleep(2000);
             addQuizPage.clickAddQuizBtn(role);
             Thread.sleep(2000);
-            String link = readDataFromExcel.sendData(6, 0);
-            String date = (readDataFromExcel.sendData(6, 1)).replace("\"", "");
-            String time = readDataFromExcel.sendData(6, 2).replace("\"", "");
-            String questions = readDataFromExcel.sendData(6, 3).replace("\"", "");
+            String link = excelData.getQuizLink(6, 0);
+            String date = excelData.getQuizDate(6, 1);
+            String time = excelData.getQuizTime(6, 2);
+            String questions = excelData.getQuizQuestions(6, 3);
             addQuizPage.addQuizDetails(link, date, time, questions);
             addQuizPage.clickSubmitBtn();
             Thread.sleep(5000);
-            System.out.println("Quiz Details Filled");
+            logger.info("Quiz Details Filled");
         }
         else if(quizStatus == 0){
             Assert.assertEquals(quizStatusArray[1],"Quiz Added");
-            System.out.println("Quiz Already added");
+            logger.info("Quiz Already added");
         }
         else{
-            System.out.println("Check for correct Recruitment name and Add Quiz..!!");
+            logger.info("Check for correct Recruitment name and Add Quiz..!!");
         }
         addQuizPage.clickHomeBtn();
         Thread.sleep(2000);
+        // Checking the status of Add quiz Button after adding quiz details
         String[] quizStatusArray1 = addQuizPage.addQuizBtnStatus(role);
-        int quizStatus1 = Integer.parseInt(quizStatusArray1[0]);
-        validateAddQuizBtn(quizStatus1,quizStatusArray1);
+        Assert.assertEquals(quizStatusArray1[1],addQuizBtnEnabled);
+        logger.info("Quiz Status");
+        logger.info("Quiz added successfully...!!");
     }
 
     @Test(priority = 4)
+    // Add quiz with time limit as 0
     public void addQuizInvalidZeroTime() throws InterruptedException, IOException {
-        String role = readDataFromExcel.sendData(1, 5);
+        String role = excelData.sendData(1, 5);
+        // Checking the status of Add quiz Button
         String[] quizStatusArray = addQuizPage.addQuizBtnStatus(role);
+        logger.info("Add quiz button status verification");
         int quizStatus = Integer.parseInt(quizStatusArray[0]);
         System.out.println(quizStatus);
         if(quizStatus == 1) {
             Assert.assertEquals(quizStatusArray[1],"Add Quiz");
             addQuizPage.clickAddQuizBtn(role);
             Thread.sleep(2000);
-            String link = readDataFromExcel.sendData(7, 0);
-            String date = (readDataFromExcel.sendData(7, 1)).replace("\"", "");
-            String time = readDataFromExcel.sendData(7, 2).replace("\"", "");
-            String questions = readDataFromExcel.sendData(7, 3).replace("\"", "");
-            //driver.get("https://resume-filter-frontend-urtjok3rza-wl.a.run.app/expert/add-quiz/183");
+            String link = excelData.getQuizLink(7, 0);
+            String date = excelData.getQuizDate(7, 1);
+            String time = excelData.getQuizTime(7, 2);
+            String questions = excelData.getQuizQuestions(7, 3);
             addQuizPage.addQuizDetails(link, date, time, questions);
             addQuizPage.clickSubmitBtn();
             Thread.sleep(5000);
-            System.out.println("Quiz Details Filled");
+            logger.info("Quiz Details Filled");
         }
         else if(quizStatus == 0){
             Assert.assertEquals(quizStatusArray[1],"Quiz Added");
-            System.out.println("Quiz Already added");
+            logger.info("Quiz Already added");
         }
         else{
-            System.out.println("Check for correct Recruitment name and Add Quiz..!!");
+            logger.info("Check for correct Recruitment name and Add Quiz..!!");
         }
         addQuizPage.clickHomeBtn();
         Thread.sleep(2000);
+        // Checking the status of Add quiz Button after adding quiz details
         String[] quizStatusArray1 = addQuizPage.addQuizBtnStatus(role);
-        int quizStatus1 = Integer.parseInt(quizStatusArray1[0]);
-        validateAddQuizBtn(quizStatus1,quizStatusArray1);
+        Assert.assertEquals(quizStatusArray1[1],addQuizBtnEnabled);
+        logger.info("Quiz Status");
+        logger.info("Quiz added successfully...!!");
     }
 
     @Test(priority = 5)
+    // Add data and click reset the data to empty
     public void addQuizResetCheck() throws InterruptedException, IOException {
-        String role = readDataFromExcel.sendData(1, 5);
+        String role = excelData.sendData(1, 5);
+        // Checking the status of Add quiz Button
         String[] quizStatusArray = addQuizPage.addQuizBtnStatus(role);
+        logger.info("Add quiz button status verification");
         int quizStatus = Integer.parseInt(quizStatusArray[0]);
-        System.out.println(quizStatus);
         if (quizStatus == 1) {
             Assert.assertEquals(quizStatusArray[1],"Add Quiz");
             addQuizPage.clickAddQuizBtn(role);
             Thread.sleep(2000);
-            String link = readDataFromExcel.sendData(11, 0);
-            String date = (readDataFromExcel.sendData(11, 1)).replace("\"", "");
-            String time = readDataFromExcel.sendData(11, 2).replace("\"", "");
-            String questions = readDataFromExcel.sendData(11, 3).replace("\"", "");
+            String link = excelData.getQuizLink(11, 0);
+            String date = excelData.getQuizDate(11, 1);
+            String time = excelData.getQuizTime(11, 2);
+            String questions = excelData.getQuizQuestions(11, 3);
             addQuizPage.addQuizDetails(link, date, time, questions);
             addQuizPage.clickResetBtn();
             boolean res = addQuizPage.clickSubmitBtn();
             if(res){
-                Assert.assertEquals(res ,true);
-                System.out.println("Submit button is enabled");
+                Assert.assertEquals(res,true);
+                logger.info("Submit button is enabled");
             }else{
-                Assert.assertEquals(res ,false);
-                System.out.println("Submit button is disabled");
+                Assert.assertEquals(res,false);
+                logger.info("Submit button is disabled");
             }
             Thread.sleep(5000);
-            System.out.println("Quiz Details Reset to empty");
+            logger.info("Quiz Details Reset to empty");
         }
         else if (quizStatus == 0) {
             Assert.assertEquals(quizStatusArray[1],"Quiz Added");
-            System.out.println("Quiz Already added");
+            logger.info("Quiz Already added");
         }
         else {
-            System.out.println("Check for correct Recruitment name and Add Quiz..!!");
+            logger.info("Check for correct Recruitment name and Add Quiz..!!");
         }
         Thread.sleep(2000);
         addQuizPage.clickHomeBtn();
         Thread.sleep(2000);
+        // Checking the status of Add quiz Button after adding quiz details
         String[] quizStatusArray1 = addQuizPage.addQuizBtnStatus(role);
-        int quizStatus1 = Integer.parseInt(quizStatusArray1[0]);
-        validateAddQuizBtn(quizStatus1,quizStatusArray1);
+        Assert.assertEquals(quizStatusArray1[1],addQuizBtnEnabled);
+        logger.info("Quiz Status");
+        logger.info("Quiz added successfully...!!");
     }
 
     @Test(priority = 6)
+    // Add quiz with all entries as empty
     public void addQuizInvalidEntries() throws InterruptedException, IOException {
-            String role = readDataFromExcel.sendData(1, 5);
+            String role = excelData.sendData(1, 5);
+            // Checking the status of Add quiz Button
             String[] quizStatusArray = addQuizPage.addQuizBtnStatus(role);
             int quizStatus = Integer.parseInt(quizStatusArray[0]);
-            System.out.println(quizStatus);
+            logger.info("Add quiz button status verification");
             if (quizStatus == 1) {
                 Assert.assertEquals(quizStatusArray[1],"Add Quiz");
                 addQuizPage.clickAddQuizBtn(role);
@@ -219,292 +247,353 @@ public class AddQuizPageTest {
                 Assert.assertEquals(arr[0], "Quiz link is required.");
                 Assert.assertEquals(arr[1], "End Date is required.");
                 Assert.assertEquals(arr[2], "Time Limit is required.");
-
-                System.out.println(arr[0]);
-                System.out.println(arr[1]);
-                System.out.println(arr[2]);
+                logger.info(arr[0]);
+                logger.info(arr[1]);
+                logger.info(arr[2]);
                 boolean res = addQuizPage.clickSubmitBtn();
                 if(res){
                     Assert.assertEquals(res,true);
-                    System.out.println("Submit button is enabled");
+                    logger.info("Submit button is enabled");
                 }else{
                     Assert.assertEquals(res, false);
-                    System.out.println("Submit button is disabled");
+                    logger.info("Submit button is disabled");
                 }
                 Thread.sleep(5000);
-                System.out.println("Quiz Details Reset to empty");
+                logger.info("Quiz Details Reset to empty");
             }
             else if (quizStatus == 0) {
                 Assert.assertEquals(quizStatusArray[1],"Quiz Added");
-                System.out.println("Quiz Already added");
+                logger.info("Quiz Already added");
             }
             else {
-                System.out.println("Check for correct Recruitment name and Add Quiz..!!");
+                logger.info("Check for correct Recruitment name and Add Quiz..!!");
             }
             Thread.sleep(2000);
             addQuizPage.clickHomeBtn();
             Thread.sleep(2000);
+        // Checking the status of Add quiz Button after adding quiz details
         String[] quizStatusArray1 = addQuizPage.addQuizBtnStatus(role);
-        int quizStatus1 = Integer.parseInt(quizStatusArray1[0]);
-        validateAddQuizBtn(quizStatus1,quizStatusArray1);
+        Assert.assertEquals(quizStatusArray1[1],addQuizBtnEnabled);
+        logger.info("Quiz Status");
+        logger.info("Quiz added successfully...!!");
     }
 
-
     @Test(priority = 7)
-    public void addQuiz() throws InterruptedException, IOException {
-        String role = readDataFromExcel.sendData(1, 5);
+    // Add quiz with empty question number
+    public void addQuizNoQuestionsNumber() throws InterruptedException, IOException {
+        String role = excelData.sendData(1, 5);
+        // Checking the status of Add quiz Button
         String[] quizStatusArray = addQuizPage.addQuizBtnStatus(role);
         int quizStatus = Integer.parseInt(quizStatusArray[0]);
-        System.out.println(quizStatus);
+        logger.info("Add quiz button status verification");
         if(quizStatus == 1) {
             Assert.assertEquals(quizStatusArray[1],"Add Quiz");
             addQuizPage.clickAddQuizBtn(role);
             Thread.sleep(2000);
-            String link = readDataFromExcel.sendData(1, 0);
-            String date = (readDataFromExcel.sendData(1, 1)).replace("\"", "");
-            String time = readDataFromExcel.sendData(1, 2).replace("\"", "");
-            String questions = readDataFromExcel.sendData(1, 3).replace("\"", "");addQuizPage.addQuizDetails(link, date, time, questions);
-            addQuizPage.clickSubmitBtn();
-            Thread.sleep(5000);
-            System.out.println("Quiz Details Filled");
+            String link = excelData.getQuizLink(12, 0);
+            String date = excelData.getQuizDate(12, 1);
+            String time = excelData.getQuizTime(12, 2);
+            String questions = excelData.getQuizQuestions(12, 3);
+            addQuizPage.addQuizDetails(link, date, time, questions);
+            boolean res = addQuizPage.clickSubmitBtn();
+            if(res){
+                Assert.assertEquals(res ,true);
+                logger.info("Submit button is enabled");
+            }else{
+                Assert.assertEquals(res ,false);
+                logger.info("Submit button is disabled");
+            }
+            Thread.sleep(2000);
+            logger.info("Quiz Details Filled");
         }
         else if(quizStatus == 0){
             Assert.assertEquals(quizStatusArray[1],"Quiz Added");
-            System.out.println("Quiz Already added");
+            logger.info("Quiz Already added");
         }
         else{
-            System.out.println("Check for correct Recruitment name and Add Quiz..!!");
+            logger.info("Check for correct Recruitment name and Add Quiz..!!");
         }
         addQuizPage.clickHomeBtn();
         Thread.sleep(2000);
+        // Checking the status of Add quiz Button after adding quiz details
         String[] quizStatusArray1 = addQuizPage.addQuizBtnStatus(role);
-        int quizStatus1 = Integer.parseInt(quizStatusArray1[0]);
-        validateAddQuizBtn(quizStatus1,quizStatusArray1);
+        Assert.assertEquals(quizStatusArray1[1],addQuizBtnEnabled);
+        logger.info("Quiz Status");
+        logger.info("Quiz added successfully...!!");
     }
 
     @Test(priority = 8)
-    public void addQuizInvalidUrl1() throws InterruptedException, IOException {
-        String role = readDataFromExcel.sendData(1, 5);
+    // Add quiz with valid details
+    public void addQuiz() throws InterruptedException, IOException {
+        String role = excelData.sendData(1, 5);
+        // Checking the status of Add quiz Button
         String[] quizStatusArray = addQuizPage.addQuizBtnStatus(role);
         int quizStatus = Integer.parseInt(quizStatusArray[0]);
-        System.out.println(quizStatus);
+        logger.info("Add quiz button status verification");
         if(quizStatus == 1) {
             Assert.assertEquals(quizStatusArray[1],"Add Quiz");
             addQuizPage.clickAddQuizBtn(role);
             Thread.sleep(2000);
-            String link = readDataFromExcel.sendData(2, 0);
-            String date = (readDataFromExcel.sendData(2, 1)).replace("\"", "");
-            String time = readDataFromExcel.sendData(2, 2).replace("\"", "");
-            String questions = readDataFromExcel.sendData(2, 3).replace("\"", "");addQuizPage.addQuizDetails(link, date, time, questions);
+            String link = excelData.getQuizLink(1, 0);
+            String date = excelData.getQuizDate(1, 1);
+            String time = excelData.getQuizTime(1, 2);
+            String questions = excelData.getQuizQuestions(1, 3);
+            addQuizPage.addQuizDetails(link, date, time, questions);
             addQuizPage.clickSubmitBtn();
             Thread.sleep(5000);
-            System.out.println("Quiz Details Filled");
+            logger.info("Quiz Details Filled");
         }
         else if(quizStatus == 0){
             Assert.assertEquals(quizStatusArray[1],"Quiz Added");
-            System.out.println("Quiz Already added");
+            logger.info("Quiz Already added");
         }
         else{
-            System.out.println("Check for correct Recruitment name and Add Quiz..!!");
+            logger.info("Check for correct Recruitment name and Add Quiz..!!");
         }
         addQuizPage.clickHomeBtn();
         Thread.sleep(2000);
+        // Checking the status of Add quiz Button after adding quiz details
         String[] quizStatusArray1 = addQuizPage.addQuizBtnStatus(role);
-        int quizStatus1 = Integer.parseInt(quizStatusArray1[0]);
-        validateAddQuizBtn(quizStatus1,quizStatusArray1);
+        Assert.assertEquals(quizStatusArray1[1],addQuizBtnDisabled);
+        logger.info("Quiz Status");
+        logger.info("Quiz added successfully...!!");
     }
 
-
     @Test(priority = 9)
-    public void addQuizInvalidUrl2() throws InterruptedException, IOException {
-        String role = readDataFromExcel.sendData(1, 5);
+    // Add quiz to the recruitment in which quiz is already added
+    public void addQuizToAlreadyAdded() throws InterruptedException, IOException {
+        String role = excelData.sendData(1, 5);
+        // Checking the status of Add quiz Button
         String[] quizStatusArray = addQuizPage.addQuizBtnStatus(role);
         int quizStatus = Integer.parseInt(quizStatusArray[0]);
-        System.out.println(quizStatus);
+        logger.info("Add quiz button status verification");
         if(quizStatus == 1) {
             Assert.assertEquals(quizStatusArray[1],"Add Quiz");
             addQuizPage.clickAddQuizBtn(role);
             Thread.sleep(2000);
-            String link = readDataFromExcel.sendData(3, 0);
-            String date = (readDataFromExcel.sendData(3, 1)).replace("\"", "");
-            String time = readDataFromExcel.sendData(3, 2).replace("\"", "");
-            String questions = readDataFromExcel.sendData(3, 3).replace("\"", "");addQuizPage.addQuizDetails(link, date, time, questions);
+            String link = excelData.getQuizLink(1, 0);
+            String date = excelData.getQuizDate(1, 1);
+            String time = excelData.getQuizTime(1, 2);
+            String questions = excelData.getQuizQuestions(1, 3);
+            addQuizPage.addQuizDetails(link, date, time, questions);
             addQuizPage.clickSubmitBtn();
             Thread.sleep(5000);
-            System.out.println("Quiz Details Filled");
+            logger.info("Quiz Details Filled");
         }
         else if(quizStatus == 0){
             Assert.assertEquals(quizStatusArray[1],"Quiz Added");
-            System.out.println("Quiz Already added");
+            logger.info("Quiz Already added");
         }
         else{
-            System.out.println("Check for correct Recruitment name and Add Quiz..!!");
+            logger.info("Check for correct Recruitment name and Add Quiz..!!");
         }
         addQuizPage.clickHomeBtn();
         Thread.sleep(2000);
+        // Checking the status of Add quiz Button after adding quiz details
         String[] quizStatusArray1 = addQuizPage.addQuizBtnStatus(role);
-        int quizStatus1 = Integer.parseInt(quizStatusArray1[0]);
-        validateAddQuizBtn(quizStatus1,quizStatusArray1);
+        Assert.assertEquals(quizStatusArray1[1],addQuizBtnDisabled);
+        logger.info("Quiz status");
+        logger.info("Quiz Already added");
     }
 
 
     @Test(priority = 10)
-    public void addQuizInvalidNegativeQuestions() throws InterruptedException, IOException {
-        String role = readDataFromExcel.sendData(1, 5);
+    // Add Quiz with url as 12345
+    public void addQuizInvalidUrl1() throws InterruptedException, IOException {
+        String role = excelData.sendData(2, 5);
+        // Checking the status of Add quiz Button
         String[] quizStatusArray = addQuizPage.addQuizBtnStatus(role);
         int quizStatus = Integer.parseInt(quizStatusArray[0]);
-        System.out.println(quizStatus);
+        logger.info("Add quiz button status verification");
         if(quizStatus == 1) {
             Assert.assertEquals(quizStatusArray[1],"Add Quiz");
             addQuizPage.clickAddQuizBtn(role);
             Thread.sleep(2000);
-            String link = readDataFromExcel.sendData(8, 0);
-            String date = (readDataFromExcel.sendData(8, 1)).replace("\"", "");
-            String time = readDataFromExcel.sendData(8, 2).replace("\"", "");
-            String questions = readDataFromExcel.sendData(8, 3).replace("\"", "");addQuizPage.addQuizDetails(link, date, time, questions);
+            String link = excelData.getQuizLink(2, 0);
+            String date = excelData.getQuizDate(2, 1);
+            String time = excelData.getQuizTime(2, 2);
+            String questions = excelData.getQuizQuestions(2, 3);
+            addQuizPage.addQuizDetails(link, date, time, questions);
             addQuizPage.clickSubmitBtn();
             Thread.sleep(5000);
-            System.out.println("Quiz Details Filled");
+           logger.info("Quiz Details Filled");
         }
         else if(quizStatus == 0){
             Assert.assertEquals(quizStatusArray[1],"Quiz Added");
-            System.out.println("Quiz Already added");
+            logger.info("Quiz Already added");
         }
         else{
-            System.out.println("Check for correct Recruitment name and Add Quiz..!!");
+            logger.info("Check for correct Recruitment name and Add Quiz..!!");
         }
         addQuizPage.clickHomeBtn();
         Thread.sleep(2000);
+        // Checking the status of Add quiz Button after adding quiz details
         String[] quizStatusArray1 = addQuizPage.addQuizBtnStatus(role);
-        int quizStatus1 = Integer.parseInt(quizStatusArray1[0]);
-        validateAddQuizBtn(quizStatus1,quizStatusArray1);
+        Assert.assertEquals(quizStatusArray1[1],addQuizBtnEnabled);
+        logger.info("Quiz status");
+        logger.error("Quiz Added for Invalid URL");
     }
 
 
     @Test(priority = 11)
-    public void addQuizInvalidFloatQuestions() throws InterruptedException, IOException {
-        String role = readDataFromExcel.sendData(1, 5);
+    // Add Quiz with url as *******
+    public void addQuizInvalidUrl2() throws InterruptedException, IOException {
+        String role = excelData.sendData(3, 5);
+        // Checking the status of Add quiz Button
         String[] quizStatusArray = addQuizPage.addQuizBtnStatus(role);
         int quizStatus = Integer.parseInt(quizStatusArray[0]);
-        System.out.println(quizStatus);
+        logger.info("Add quiz button status verification");
         if(quizStatus == 1) {
             Assert.assertEquals(quizStatusArray[1],"Add Quiz");
             addQuizPage.clickAddQuizBtn(role);
             Thread.sleep(2000);
-            String link = readDataFromExcel.sendData(9, 0);
-            String date = (readDataFromExcel.sendData(9, 1)).replace("\"", "");
-            String time = readDataFromExcel.sendData(9, 2).replace("\"", "");
-            String questions = readDataFromExcel.sendData(9, 3).replace("\"", "");addQuizPage.addQuizDetails(link, date, time, questions);
+            String link = excelData.getQuizLink(3, 0);
+            String date = excelData.getQuizDate(3, 1);
+            String time = excelData.getQuizTime(3, 2);
+            String questions = excelData.getQuizQuestions(3, 3);
+            addQuizPage.addQuizDetails(link, date, time, questions);
             addQuizPage.clickSubmitBtn();
             Thread.sleep(5000);
-            System.out.println("Quiz Details Filled");
+            logger.info("Quiz Details Filled");
         }
         else if(quizStatus == 0){
             Assert.assertEquals(quizStatusArray[1],"Quiz Added");
-            System.out.println("Quiz Already added");
+            logger.info("Quiz Already added");
         }
         else{
-            System.out.println("Check for correct Recruitment name and Add Quiz..!!");
+            logger.info("Check for correct Recruitment name and Add Quiz..!!");
         }
         addQuizPage.clickHomeBtn();
         Thread.sleep(2000);
+        // Checking the status of Add quiz Button after adding quiz details
         String[] quizStatusArray1 = addQuizPage.addQuizBtnStatus(role);
-        int quizStatus1 = Integer.parseInt(quizStatusArray1[0]);
-        validateAddQuizBtn(quizStatus1,quizStatusArray1);
+        Assert.assertEquals(quizStatusArray1[1],addQuizBtnEnabled);
+        logger.info("Quiz status");
+        logger.error("Quiz Added for Invalid URL");
     }
+
 
     @Test(priority = 12)
-    public void addQuizInvalidZeroQuestions() throws InterruptedException, IOException {
-        String role = readDataFromExcel.sendData(1, 5);
+    // Add Quiz with number of questions as negative
+    public void addQuizInvalidNegativeQuestions() throws InterruptedException, IOException {
+        String role = excelData.sendData(4, 5);
+        // Checking the status of Add quiz Button
         String[] quizStatusArray = addQuizPage.addQuizBtnStatus(role);
         int quizStatus = Integer.parseInt(quizStatusArray[0]);
-        System.out.println(quizStatus);
+        logger.info("Add quiz button status verification");
         if(quizStatus == 1) {
             Assert.assertEquals(quizStatusArray[1],"Add Quiz");
             addQuizPage.clickAddQuizBtn(role);
             Thread.sleep(2000);
-            String link = readDataFromExcel.sendData(10, 0);
-            String date = (readDataFromExcel.sendData(10, 1)).replace("\"", "");
-            String time = readDataFromExcel.sendData(10, 2).replace("\"", "");
-            String questions = readDataFromExcel.sendData(10, 3).replace("\"", "");addQuizPage.addQuizDetails(link, date, time, questions);
+            String link = excelData.getQuizLink(8, 0);
+            String date = excelData.getQuizDate(8, 1);
+            String time = excelData.getQuizTime(8, 2);
+            String questions = excelData.getQuizQuestions(8, 3);
+            addQuizPage.addQuizDetails(link, date, time, questions);
             addQuizPage.clickSubmitBtn();
             Thread.sleep(5000);
-            System.out.println("Quiz Details Filled");
+            logger.info("Quiz Details Filled");
         }
         else if(quizStatus == 0){
             Assert.assertEquals(quizStatusArray[1],"Quiz Added");
-            System.out.println("Quiz Already added");
+            logger.info("Quiz Already added");
         }
         else{
-            System.out.println("Check for correct Recruitment name and Add Quiz..!!");
+            logger.info("Check for correct Recruitment name and Add Quiz..!!");
         }
         addQuizPage.clickHomeBtn();
         Thread.sleep(2000);
+        // Checking the status of Add quiz Button after adding quiz details
         String[] quizStatusArray1 = addQuizPage.addQuizBtnStatus(role);
-        int quizStatus1 = Integer.parseInt(quizStatusArray1[0]);
-        validateAddQuizBtn(quizStatus1,quizStatusArray1);
+        Assert.assertEquals(quizStatusArray1[1],addQuizBtnEnabled);
+        logger.info("Quiz status");
+        logger.error("Quiz Added for Negative number of questions");
     }
 
+
     @Test(priority = 13)
-    public void addQuizNoQuestionsNumber() throws InterruptedException, IOException {
-        String role = readDataFromExcel.sendData(1, 5);
+    // Add Quiz with number of questions as float digit
+    public void addQuizInvalidFloatQuestions() throws InterruptedException, IOException {
+        String role = excelData.sendData(5, 5);
+        // Checking the status of Add quiz Button
         String[] quizStatusArray = addQuizPage.addQuizBtnStatus(role);
         int quizStatus = Integer.parseInt(quizStatusArray[0]);
-        System.out.println(quizStatus);
+        logger.info("Add quiz button status verification");
         if(quizStatus == 1) {
             Assert.assertEquals(quizStatusArray[1],"Add Quiz");
             addQuizPage.clickAddQuizBtn(role);
             Thread.sleep(2000);
-            String link = readDataFromExcel.sendData(12, 0);
-            String date = (readDataFromExcel.sendData(12, 1)).replace("\"", "");
-            String time = readDataFromExcel.sendData(12, 2).replace("\"", "");
-            String questions = readDataFromExcel.sendData(12, 3).replace("\"", "");addQuizPage.addQuizDetails(link, date, time, questions);
-            boolean res = addQuizPage.clickSubmitBtn();
-            if(res){
-                Assert.assertEquals(res ,true);
-                System.out.println("Submit button is enabled");
-            }else{
-                Assert.assertEquals(res ,false);
-                System.out.println("Submit button is disabled");
-            }
-            String msg = addQuizPage.findErrorMsg();
-            Assert.assertEquals(msg,"questions: This field may not be blank.");
+            String link = excelData.getQuizLink(9, 0);
+            String date = excelData.getQuizDate(9, 1);
+            String time = excelData.getQuizTime(9, 2);
+            String questions = excelData.getQuizQuestions(9, 3);
+            addQuizPage.addQuizDetails(link, date, time, questions);
+            addQuizPage.clickSubmitBtn();
             Thread.sleep(5000);
-            System.out.println("Quiz Details Filled");
+            logger.info("Quiz Details Filled");
         }
         else if(quizStatus == 0){
             Assert.assertEquals(quizStatusArray[1],"Quiz Added");
-            System.out.println("Quiz Already added");
+            logger.info("Quiz Already added");
         }
         else{
-            System.out.println("Check for correct Recruitment name and Add Quiz..!!");
+            logger.info("Check for correct Recruitment name and Add Quiz..!!");
         }
         addQuizPage.clickHomeBtn();
         Thread.sleep(2000);
+        // Checking the status of Add quiz Button after adding quiz details
         String[] quizStatusArray1 = addQuizPage.addQuizBtnStatus(role);
-        int quizStatus1 = Integer.parseInt(quizStatusArray1[0]);
-        validateAddQuizBtn(quizStatus1,quizStatusArray1);
+        Assert.assertEquals(quizStatusArray1[1],addQuizBtnEnabled);
+        logger.info("Quiz status");
+        logger.error("Quiz Added for number of questions as float value");
     }
 
     @Test(priority = 14)
+    // Add Quiz with number of questions as 0
+    public void addQuizInvalidZeroQuestions() throws InterruptedException, IOException {
+        String role = excelData.sendData(6, 5);
+        // Checking the status of Add quiz Button
+        String[] quizStatusArray = addQuizPage.addQuizBtnStatus(role);
+        int quizStatus = Integer.parseInt(quizStatusArray[0]);
+        logger.info("Add quiz button status verification");
+        if(quizStatus == 1) {
+            Assert.assertEquals(quizStatusArray[1],"Add Quiz");
+            addQuizPage.clickAddQuizBtn(role);
+            Thread.sleep(2000);
+            String link = excelData.getQuizLink(10, 0);
+            String date = excelData.getQuizDate(10, 1);
+            String time = excelData.getQuizTime(10, 2);
+            String questions = excelData.getQuizQuestions(10, 3);
+            addQuizPage.addQuizDetails(link, date, time, questions);
+            addQuizPage.clickSubmitBtn();
+            Thread.sleep(5000);
+            logger.info("Quiz Details Filled");
+        }
+        else if(quizStatus == 0){
+            Assert.assertEquals(quizStatusArray[1],"Quiz Added");
+            logger.info("Quiz Already added");
+        }
+        else{
+            logger.info("Check for correct Recruitment name and Add Quiz..!!");
+        }
+        addQuizPage.clickHomeBtn();
+        Thread.sleep(2000);
+        // Checking the status of Add quiz Button after adding quiz details
+        String[] quizStatusArray1 = addQuizPage.addQuizBtnStatus(role);
+        Assert.assertEquals(quizStatusArray1[1],addQuizBtnEnabled);
+        logger.info("Quiz status");
+        logger.error("Quiz Added for number of questions as 0");
+    }
+
+    @Test(priority = 15)
+    //Logout
     public void logout(){
+        logger.info("Subject Expert logged out");
         addQuizPage.logout();
     }
 
-    private void validateAddQuizBtn(int quizStatus1 ,String[] quizStatusArray) {
-        if(quizStatus1 == 1){
-            Assert.assertEquals(quizStatusArray[1],"Add Quiz");
-            System.out.println("Quiz not added because of invalid input");
-        }
-        else if(quizStatus1 == -1){
-            System.out.println("Check for correct Recruitment name and Add Quiz..!!");
-        }
-        else{
-            Assert.assertEquals(quizStatusArray[1],"Quiz Added");
-            System.out.println("Quiz added successfully...!!");
-        }
-    }
     @AfterClass
+    // Closing the browser
     public void closeChrome()
     {
         closeBrowser();
