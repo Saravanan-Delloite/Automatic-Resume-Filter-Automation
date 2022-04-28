@@ -8,6 +8,8 @@ import java.awt.datatransfer.StringSelection;
 import java.awt.event.KeyEvent;
 import java.util.List;
 
+import static java.lang.Thread.sleep;
+
 
 public class HrHomePage {
     WebDriver driver;
@@ -20,7 +22,8 @@ public class HrHomePage {
     By sendquiz=By.xpath("//div[1]/div[2]/button");
     By emailStatus=By.xpath("//ngb-alert");
 
-    By completed=By.xpath("//div[2]/div/div[2]/app-card/div/div/h5");
+    By completed=By.xpath("//div/div[2]/div/app-card/div/div/h5");
+    By allRecuriment=By.xpath("//*[@id='navbarNav']/ul/li[4]/a");
     By browseFile=By.xpath("//*[@id='myModal']/div/div/div[3]");
     By download=By.xpath("//div[1]/div[2]/button");
     By alert=By.xpath("//ngb-alert");
@@ -38,12 +41,12 @@ public class HrHomePage {
         driver.findElement(email).sendKeys("admin123");
         driver.findElement(password).sendKeys("admin123");
         driver.findElement(submit).click();
-        Thread.sleep(5000);
+        sleep(5000);
     }
     public void SortStartDate() throws InterruptedException {
         WebElement sortBtnClick = driver.findElement(By.xpath("//*[@class='form-select date-picker']"));
         sortBtnClick.click();
-        Thread.sleep(2000);
+        sleep(2000);
         Select Desk = new Select(sortBtnClick);
         Desk.selectByVisibleText("Start Date");
     }
@@ -51,7 +54,7 @@ public class HrHomePage {
     public void StartDateAsc() throws InterruptedException {
         WebElement orderBtnClick = driver.findElement(By.xpath("//*[@class='form-select status-select']"));
         orderBtnClick.click();
-        Thread.sleep(2000);
+        sleep(2000);
         Select Desk = new Select(orderBtnClick);
         Desk.selectByVisibleText("Ascending");
     }
@@ -59,14 +62,14 @@ public class HrHomePage {
     public void StartDateDesc() throws InterruptedException {
         WebElement orderBtnClick = driver.findElement(By.xpath("//*[@class='form-select status-select']"));
         orderBtnClick.click();
-        Thread.sleep(2000);
+        sleep(2000);
         Select Desk = new Select(orderBtnClick);
         Desk.selectByVisibleText("Descending");
     }
     public void SortEndDate() throws InterruptedException {
         WebElement sortBtnClick = driver.findElement(By.xpath("//*[@class='form-select date-picker']"));
         sortBtnClick.click();
-        Thread.sleep(2000);
+        sleep(2000);
         Select Desk = new Select(sortBtnClick);
         Desk.selectByVisibleText("End Date");
     }
@@ -74,7 +77,7 @@ public class HrHomePage {
     public void EndDateAsc() throws InterruptedException {
         WebElement orderBtnClick = driver.findElement(By.xpath("//*[@class='form-select status-select']"));
         orderBtnClick.click();
-        Thread.sleep(2000);
+        sleep(2000);
         Select Desk = new Select(orderBtnClick);
         Desk.selectByVisibleText("Ascending");
     }
@@ -82,14 +85,14 @@ public class HrHomePage {
     public void EndDateDesc() throws InterruptedException {
         WebElement orderBtnClick = driver.findElement(By.xpath("//*[@class='form-select status-select']"));
         orderBtnClick.click();
-        Thread.sleep(2000);
+        sleep(2000);
         Select Desk = new Select(orderBtnClick);
         Desk.selectByVisibleText("Descending");
     }
     public void SortDate() throws InterruptedException {
         WebElement sortBtnClick = driver.findElement(By.xpath("//*[@class='form-select date-picker']"));
         sortBtnClick.click();
-        Thread.sleep(2000);
+        sleep(2000);
         Select Desk = new Select(sortBtnClick);
         Desk.selectByVisibleText("Date");
     }
@@ -97,7 +100,7 @@ public class HrHomePage {
     public void NameAsc() throws InterruptedException {
         WebElement orderBtnClick = driver.findElement(By.xpath("//*[@class='form-select status-select']"));
         orderBtnClick.click();
-        Thread.sleep(2000);
+        sleep(2000);
         Select Desk = new Select(orderBtnClick);
         Desk.selectByVisibleText("Ascending");
     }
@@ -105,7 +108,7 @@ public class HrHomePage {
     public void NameDesc() throws InterruptedException {
         WebElement orderBtnClick = driver.findElement(By.xpath("//*[@class='form-select status-select']"));
         orderBtnClick.click();
-        Thread.sleep(2000);
+        sleep(2000);
         Select Desk = new Select(orderBtnClick);
         Desk.selectByVisibleText("Descending");
     }
@@ -116,14 +119,15 @@ public class HrHomePage {
             if (webElement.getText().equals(recuriment)) {
                 count++;
                 JavascriptExecutor jse = (JavascriptExecutor) driver;
+                //jse.executeScript("arguments[0].scrollIntoView()", webElement);
                 jse.executeScript("arguments[0].click()", webElement);
-                Thread.sleep(5000);
+                sleep(3000);
                 //driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
                 try {
                     driver.findElement(sendMail).click();
-                    Thread.sleep(5000);
+                    sleep(5000);
                     String alert=driver.findElement(emailStatus).getText();
-                    Thread.sleep(5000);
+                    sleep(2000);
                     WebElement sendQuiz = driver.findElement(sendquiz);
                     if (!(sendQuiz.isEnabled())) {
                         //System.out.println("quiz should be added by hr");
@@ -152,19 +156,23 @@ public class HrHomePage {
     }
     public String completed(String recuriment) throws InterruptedException {
         //driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
+       // allRecuriment();
+        //Thread.sleep(5000);
+        System.out.println("harsha");
         List<WebElement> title=driver.findElements(completed);
         int count=0;
         for (WebElement webElement : title) {
             if (webElement.getText().equals(recuriment)) {
                 JavascriptExecutor jse = (JavascriptExecutor) driver;
+                //jse.executeScript("arguments[0].scrollIntoView()", webElement);
                 jse.executeScript("arguments[0].click()", webElement);
-                Thread.sleep(5000);
+                sleep(3000);
                 try {
                     driver.findElement(browseFile).click();
                     Robot rb;
                     rb = new Robot();
                     rb.delay(2000);
-                    StringSelection ss = new StringSelection("C:\\Users\\yashmittal2\\Desktop\\Automatic-Resume-Filter-Automation\\AutomaticResumeFilter\\src\\resources\\score.csv");
+                    StringSelection ss = new StringSelection("C:\\Users\\kaharshavardhan\\Desktop\\Resume_filter\\AutomaticResumeFilter\\src\\resources\\score.csv");
                     Toolkit.getDefaultToolkit().getSystemClipboard().setContents(ss, null);
                     rb.keyPress(KeyEvent.VK_CONTROL);
                     rb.keyPress(KeyEvent.VK_V);
@@ -172,8 +180,9 @@ public class HrHomePage {
                     rb.keyRelease(KeyEvent.VK_V);
                     rb.keyPress(KeyEvent.VK_ENTER);
                     rb.keyRelease(KeyEvent.VK_ENTER);
-                    Thread.sleep(10000);
+                    sleep(5000);
                     driver.findElement(download).click();
+                   // System.out.println("harsha");
                     return null;
 
                 } catch (ElementClickInterceptedException k){
@@ -184,7 +193,7 @@ public class HrHomePage {
                 } catch (ElementNotInteractableException e) {
                     System.out.println("already uploaded scores");
                     driver.findElement(download).click();
-                    Thread.sleep(5000);
+                    sleep(2000);
                     return null;
 
                 } catch (AWTException e) {
@@ -201,6 +210,10 @@ public class HrHomePage {
     public void Home(){
         driver.findElement(homePage).click();
 
+    }
+    public void allRecuriment() throws InterruptedException {
+        driver.findElement(allRecuriment).click();
+       Thread.sleep(1000);
     }
     public void close(){
         driver.quit();
