@@ -4,6 +4,7 @@ import Page.LoginPage;
 import Utilities.Environment;
 import Utilities.ExcelDataConfig;
 import Utilities.ListenerForExtentReport;
+import org.apache.log4j.Logger;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Listeners;
 import org.testng.annotations.Test;
@@ -12,6 +13,8 @@ import static Utilities.SetupDriver.getDriver;
 
 
 public class LoginExpertTestPage {
+    Logger logger = Logger.getLogger(LoginExpertTestPage.class);
+
     LoginPage login;
     ExcelDataConfig excel = new ExcelDataConfig(Environment.path);
 
@@ -30,6 +33,7 @@ public class LoginExpertTestPage {
     public void ClickSignOut()
     {
         login.ClickSignOut();
+        logger.info("************** Logged In ******************");
     }
     @Test(priority = 3)
     public void EnterUsername()
@@ -47,5 +51,6 @@ public class LoginExpertTestPage {
     public void ClickLogin()
     {
         login.ClickLogin();
+        logger.info("****************** Logged In By Expert ********************");
     }
 }
