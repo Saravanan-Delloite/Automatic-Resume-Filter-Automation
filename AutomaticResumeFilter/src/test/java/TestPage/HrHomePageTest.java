@@ -3,6 +3,9 @@ import Utilities.ListenerForExtentReport;
 import dataHandling.ReadingData;
 import org.testng.Assert;
 import org.testng.annotations.BeforeTest;
+
+import org.apache.log4j.Logger;
+
 import Page.*;
 
 import org.openqa.selenium.WebDriver;
@@ -12,10 +15,13 @@ import org.testng.annotations.Test;
 import static Utilities.SetupDriver.*;
 
 import java.io.IOException;
+
 @Listeners(ListenerForExtentReport.class)
 
 public class HrHomePageTest {
+    Logger logger=Logger.getLogger(HrHomePageTest.class);
 //    static WebDriver driver;
+
     HrHomePage subHome;
     HrHomePage hr;
     static ReadingData data=new ReadingData();
@@ -53,7 +59,7 @@ public class HrHomePageTest {
             Assert.assertEquals(str, "Email Sent Successfully.");
         }
         catch (AssertionError e){
-            System.out.println("assertion error1");
+           logger.error("assertion error1");
         }
         hr.Home();
         Thread.sleep(3000);
@@ -67,7 +73,7 @@ public class HrHomePageTest {
             Assert.assertEquals(str, "Already Sent Quiz");
         }
         catch (AssertionError e){
-            System.out.println("assertion error2");
+            logger.error("assertion error2");
         }
         hr.Home();
         Thread.sleep(3000);
@@ -81,7 +87,7 @@ public class HrHomePageTest {
             Assert.assertEquals(str, "Title not present");
         }
         catch (AssertionError e){
-            System.out.println("assertion error3");
+            logger.error("assertion error3");
         }
 
     }
@@ -113,7 +119,7 @@ public class HrHomePageTest {
             Assert.assertEquals(str, "Data can't be fetched as quiz was not uploaded by Expert and quiz not held.");
         }
         catch (AssertionError e){
-            System.out.println("assertion error4");
+            logger.error("assertion error4");
         }
         hr.allRecuriment();
         Thread.sleep(3000);
@@ -127,7 +133,7 @@ public class HrHomePageTest {
             Assert.assertEquals(str, "Title not present");
         }
         catch (AssertionError e){
-            System.out.println("assertion error5");
+            logger.error("assertion error5");
         }
 
     }
