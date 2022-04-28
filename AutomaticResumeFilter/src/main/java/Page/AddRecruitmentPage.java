@@ -38,10 +38,10 @@ public class AddRecruitmentPage
 
     public void initialSetup() throws Exception
     {
+        initalizeXlsheet();
         driver.findElement(Add_recruitment_Page_Btn).click();
         driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(5));
     }
-
     public void selectRecruitmentName()
     {
         jse = (JavascriptExecutor)driver;
@@ -75,7 +75,6 @@ public class AddRecruitmentPage
         driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(5));
         return driver.findElement(Expertee_Warning).isDisplayed();
     }
-
     public  boolean checkStartDateWarning()
     {
         sendValues(End_Date,"");
@@ -88,6 +87,18 @@ public class AddRecruitmentPage
         driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(5));
         return driver.findElement(End_Date_Warning).isEnabled();
     }
+    public boolean checkPastStartDate()
+    {
+        sendValues(Start_Date,String.valueOf(sheets.getRow(2).getCell(4)));
+        driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(5));
+        return driver.findElement(Start_DateWarning).isDisplayed();
+    }
+    public boolean checkPastEndDate()
+    {
+        sendValues(End_Date,String.valueOf(sheets.getRow(2).getCell(5)));
+        driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(5));
+        return driver.findElement(End_Date_Warning).isDisplayed();
+    }
     public boolean checkResetBtn()
     {
         return driver.findElement(Reset_Button).isEnabled();
@@ -95,7 +106,6 @@ public class AddRecruitmentPage
     public  void sendItems() throws Exception
     {
         jse.executeScript("window.scrollBy(0,-850)");
-        initalizeXlsheet();
         Thread.sleep(500);
         sendValues(Recruitment_Name, String.valueOf(sheets.getRow(1).getCell(0)));
         System.out.println(driver.findElement(Recruitment_Name).getText());
@@ -112,7 +122,7 @@ public class AddRecruitmentPage
         Thread.sleep(300);
         sendValues(End_Date,String.valueOf(sheets.getRow(1).getCell(5)));
         Thread.sleep(300);
-        sendValues(Upload_Resume,"C:\\Users\\yashmittal2\\Desktop\\Automatic-Resume-Filter-Automation\\AutomaticResumeFilter\\src\\resources\\Resumes.zip");
+        sendValues(Upload_Resume,"C:\\Users\\ksaravanakumar\\Documents\\Automatic-Resume-Filter-Automation\\AutomaticResumeFilter\\src\\resources\\Resumes.zip");
         Thread.sleep(5000);
     }
     public boolean checkRecuitmentBtn()
@@ -124,7 +134,8 @@ public class AddRecruitmentPage
         WebElement add_Recruitment = driver.findElement(Add_Recruitment_Btn);
         JavascriptExecutor jse = (JavascriptExecutor) driver;
         jse.executeScript("arguments[0].click()", add_Recruitment);
-        Thread.sleep(15000);
+        //Thread.sleep(15000);
+        driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(30));
     }
     public  void selectListElem(By userRole,String role)
     {
