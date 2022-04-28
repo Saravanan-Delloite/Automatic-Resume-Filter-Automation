@@ -15,7 +15,7 @@ public class SignupOperation extends SignupPageDisplayAndEnable{
 
     static By checkbox = By.xpath("//input[@type='checkbox']");
     static By skill = By.xpath("//input[@placeholder='Enter Categories']");
-    static By letsgo = By.xpath("//button[@type='submit']");
+    static By letsGo = By.xpath("//button[@type='submit']");
     static By dropdown = By.xpath("//div[@id='dropdownMenuButton']");
     static By logout = By.xpath("//a[@class='dropdown-item']");
     static By Register = By.xpath("//a[text()='Register now']");
@@ -25,6 +25,8 @@ public class SignupOperation extends SignupPageDisplayAndEnable{
         this.driver=driver;
         excel.read();
     }
+
+    //Getting the Data from the Excel Sheet, and passing the details for HR
     public static void userSignupHR() throws InterruptedException {
         String name = excel.sheet.getRow(1).getCell(0).getStringCellValue();
         driver.findElement(nameTextField).sendKeys(name);
@@ -39,8 +41,8 @@ public class SignupOperation extends SignupPageDisplayAndEnable{
         int confirmPassword = (int) excel.sheet.getRow(1).getCell(4).getNumericCellValue();
         String confirmPassword1 = Integer.toString(confirmPassword);
         driver.findElement(confirmPasswordTextField).sendKeys(confirmPassword1);
-        String confirmpass=driver.findElement(confirmPasswordTextField).getText();
-        if(pass==confirmpass)
+        String confirmPass=driver.findElement(confirmPasswordTextField).getText();
+        if(pass==confirmPass)
         {
             System.out.println("Password is matched");
         }
@@ -49,25 +51,29 @@ public class SignupOperation extends SignupPageDisplayAndEnable{
             System.out.println("password is Not matched");
         }
     }
+
+    //Signing the User for HR Role
     public void HR()
     {
         WebElement element=driver.findElement(roleTextField);
         Select hr=new Select(element);
-        hr.selectByValue("HR");
+        hr.selectByValue("HR");                     //Selecting the HR role by Value
         try {
             Thread.sleep(3000);
-            driver.findElement(checkbox).click();
+            driver.findElement(checkbox).click();   //Accepting the Terms and Conditions
             Thread.sleep(3000);
         }
         catch (Exception e)
         {
             System.out.println(e);
         }
-        driver.findElement(letsgo).click();
+        driver.findElement(letsGo).click();
         driver.findElement(dropdown).click();
         driver.findElement(logout).click();
         driver.findElement(Register).click();
     }
+
+    //Getting the Data from the Excel Sheet, and passing the details for Subject Expert
     public void userSignupSubjectExpert()
     {
         String name = excel.sheet.getRow(2).getCell(0).getStringCellValue();
@@ -84,25 +90,27 @@ public class SignupOperation extends SignupPageDisplayAndEnable{
         driver.findElement(confirmPasswordTextField).sendKeys(confirmPassword1);
         skills = excel.sheet.getRow(2).getCell(5).getStringCellValue();
     }
+
+    //Signing the User for Subject Expert Role
     public void subjectExpert() throws InterruptedException {
         WebElement element=driver.findElement(roleTextField);
         Select subjectExp=new Select(element);
-        subjectExp.selectByValue("Subject Expert");
+        subjectExp.selectByValue("Subject Expert");     //Selecting the Subject Expert by Value
         try {
             driver.findElement(skill).sendKeys(skills);
             Thread.sleep(3000);
             WebElement iAgree = driver.findElement(checkbox);
             JavascriptExecutor jse = (JavascriptExecutor) driver;
-            jse.executeScript("arguments[0].click()", iAgree);
+            jse.executeScript("arguments[0].click()", iAgree);      //Accepting the T&C by using JavaScriptExecutor
         }
         catch (Exception e)
         {
             e.printStackTrace();
         }
         Thread.sleep(3000);
-        WebElement clicksignup = driver.findElement(letsgo);
+        WebElement clickSignup = driver.findElement(letsGo);
         JavascriptExecutor jse = (JavascriptExecutor) driver;
-        jse.executeScript("arguments[0].click()", clicksignup);
+        jse.executeScript("arguments[0].click()", clickSignup);
         driver.findElement(dropdown).click();
         driver.findElement(logout).click();
     }
