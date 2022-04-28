@@ -56,7 +56,7 @@ public class HrHomePageTest {
             System.out.println("assertion error1");
         }
         hr.Home();
-        Thread.sleep(5000);
+        Thread.sleep(3000);
     }
     @Test(priority = 3)
     public void quizsentAlready() throws InterruptedException, IOException  {
@@ -70,7 +70,7 @@ public class HrHomePageTest {
             System.out.println("assertion error2");
         }
         hr.Home();
-        Thread.sleep(5000);
+        Thread.sleep(3000);
     }
     @Test(priority = 4)
     public void wrongTitle() throws InterruptedException, IOException  {
@@ -88,10 +88,12 @@ public class HrHomePageTest {
     @Test(priority = 5)
     public void updateScores() throws InterruptedException, IOException  {
 //        HrHomePage hr=new HrHomePage(driver);
+        hr.allRecuriment();
+        Thread.sleep(1000);
         String completedRecuriment1= data.getData(1,4,0);
         hr.completed(completedRecuriment1);
-        hr.Home();
-        Thread.sleep(5000);
+        hr.allRecuriment();
+        Thread.sleep(3000);
 
     }
     @Test(priority = 6)
@@ -99,8 +101,8 @@ public class HrHomePageTest {
 //        HrHomePage hr = new HrHomePage(driver);
         String completedRecuriment2= data.getData(1,5,0);
         hr.completed(completedRecuriment2);
-        hr.Home();
-        Thread.sleep(5000);
+        hr.allRecuriment();
+        Thread.sleep(3000);
     }
     @Test(priority = 7)
     public void hrNotAddedQuiz() throws InterruptedException, IOException  {
@@ -113,8 +115,8 @@ public class HrHomePageTest {
         catch (AssertionError e){
             System.out.println("assertion error4");
         }
-        hr.Home();
-        Thread.sleep(5000);
+        hr.allRecuriment();
+        Thread.sleep(3000);
     }
     @Test(priority = 8)
     public void wrongRecuriment() throws InterruptedException, IOException  {

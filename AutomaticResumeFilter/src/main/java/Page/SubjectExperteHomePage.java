@@ -24,7 +24,7 @@ public class SubjectExperteHomePage {
     By userName=By.id("dropdownMenuButton");
     By signOut=By.className("dropdown-item");
 
-    By homePage=By.xpath("//*[@id='navbarNav']/ul/li[2]");
+    By homePage=By.xpath("//*[@id='navbarNav']/ul/li[2]/a");
 
 
 
@@ -102,15 +102,19 @@ public class SubjectExperteHomePage {
         for(int index=0;index<title.size();index++) {
             if((title.get(index).getText()).equals(role)&&(quizStatus.get(index).getText()).equals(quiz)){
                 message=quizStatus.get(index).getText();
+                System.out.println("found");
                 JavascriptExecutor jse=(JavascriptExecutor)driver;
+                jse.executeScript("arguments[0].scrollIntoView()",quizStatus.get(index));
                 jse.executeScript("arguments[0].click()",quizStatus.get(index));
-                Thread.sleep(1000);
-                Home();
+               Thread.sleep(1000);
+               Home();
                 count++;
                 break;
 
             }
             if((title.get(index).getText()).equals(role)&&!(quizStatus.get(index).getText()).equals(quiz)){
+                JavascriptExecutor jse=(JavascriptExecutor)driver;
+                jse.executeScript("arguments[0].scrollIntoView()",quizStatus.get(index));
                 String message1=quizStatus.get(index).getText();
                 count++;
                 if(!(quizStatus.get(index).isEnabled()))
@@ -127,8 +131,15 @@ public class SubjectExperteHomePage {
         driver.findElement(userName).click();
         driver.findElement(signOut).click();
     }
-    public void Home(){
-        driver.findElement(homePage).click();
+    public void Home() throws InterruptedException {
+        JavascriptExecutor jse=(JavascriptExecutor)driver;
+        WebElement homeButton=driver.findElement(homePage);
+        System.out.println("i");
+        Thread.sleep(1000);
+        jse.executeScript("arguments[0].scrollIntoView()",homeButton);
+        jse.executeScript("arguments[0].click()",homeButton);
+      // driver.findElement(homePage).click();
+        Thread.sleep(1000);
 
     }
     public void close(){
